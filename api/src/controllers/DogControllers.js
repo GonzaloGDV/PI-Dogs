@@ -1,7 +1,8 @@
 const axios = require("axios");
 const { API_KEY } = process.env;
+const { Dog, Temperament } = require("../db");
 
-const getAllDogs = async () => {
+const getApiDogs = async () => {
   try {
     let dogs = (
       await axios(`https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`)
@@ -16,7 +17,35 @@ const getAllDogs = async () => {
     });
     return dogs;
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
+  }
+};
+
+const getDBDogs = async () => {
+  try {
+    const doguis = await Dog.findAll({
+      include: {
+        model: Temperament,
+        attributes: ["name"],
+        through: {
+          attributes: [],
+        },
+      },
+    });
+    return doguis;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+const getAllDogs = async () => {
+  try {
+    const apiDogs = await getApiDogs();
+    const DBDogs = await getDBDogs();
+    const all = apiDogs.concat(DBDogs);
+    return all;
+  } catch (error) {
+    console.log(error.message);
   }
 };
 
@@ -27,7 +56,6 @@ const getNamedDogs = async (name) => {
         `https://api.thedogapi.com/v1/breeds/search?q=${name}&api_key=${API_KEY}`
       )
     ).data.map((e) => {
-      console.log(e);
       return {
         id: e.id,
         name: e.name,
@@ -44,5 +72,7 @@ const getNamedDogs = async (name) => {
 
 module.exports = {
   getAllDogs,
+  getApiDogs,
   getNamedDogs,
+  getDBDogs,
 };

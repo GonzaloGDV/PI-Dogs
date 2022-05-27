@@ -1,9 +1,8 @@
 const axios = require("axios");
 const { Temperament } = require("../db");
-let temperamentsArray2 = [];
-let temperamentsArrayFinal = [];
+const temperamentsArray2 = [];
+const temperamentsArrayFinal = [];
 
-//async function getAllTemperaments() {
 const getAllTemperaments = async () => {
   try {
     let temperaments = (
@@ -19,28 +18,40 @@ const getAllTemperaments = async () => {
       .map((e) => e.name)
       .join(",")
       .split(",");
+
     for (let i = 1; i < temperamentsArray.length; i++) {
       temperamentsArray2.push(temperamentsArray[i].trim());
     }
+
     for (let i = 1; i < temperamentsArray2.length; i++) {
-      if (!temperamentsArrayFinal.includes(temperamentsArray2[i])) {
+      if (temperamentsArray2[i])
         temperamentsArrayFinal.push(temperamentsArray2[i]);
-      }
     }
-    await Temperament.bulkCreate(temperaments);
-    //console.log(temperamentsArrayFinal);
-    //console.log(temperaments);
+
+    //console.log("T2", temperamentsArray2);
+
+    temperamentsArrayFinal.forEach((temp) => {
+      Temperament.findOrCreate({
+        where: { name: temp },
+      });
+    });
+
+    //console.log("TDB", await Temperament.findAll());
+
     console.log("Temperaments loaded in DB");
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
   }
 };
 
-function getTemperamentsFromDB(req, res, next) {
-  Temperament.findAll()
-    .then((temperaments) => res.send(temperaments))
-    .catch((e) => next(e));
-}
+const getTemperamentsFromDB = async () => {
+  const totalTemperaments = await Temperament.findAll();
+  try {
+    return totalTemperaments;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 
 module.exports = {
   getAllTemperaments,
