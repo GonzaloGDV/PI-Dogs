@@ -1,9 +1,5 @@
 const { Router } = require("express");
-const {
-  getAllDogs,
-  getNamedDogs,
-  getDBDogs,
-} = require("../controllers/DogControllers");
+const { getAllDogs, getNamedDogs } = require("../controllers/DogControllers");
 const { Dog, Temperament } = require("../db");
 
 const router = Router();
@@ -21,26 +17,26 @@ router.get("/", async (req, res) => {
       res.status(200).send(allDoguis);
     }
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
   }
 });
 
 router.get("/:id", async (req, res) => {
-  const allDoguis = await getAllDogs();
+  const doguis = await getAllDogs();
   const { id } = req.params;
   try {
-    const filteredDogs = allDoguis.find((elem) => elem.id == id);
-    // const filteredDogs = allDoguis.findOne({
+    const idDog = doguis.find((e) => e.id == id);
+    // ({
     //   where: { id },
     //   include: Temperament,
     // });
-    if (filteredDogs) {
-      res.status(200).send(filteredDogs);
+    if (idDog) {
+      res.status(200).send(idDog);
     } else {
       res.status(404).send(`Breed id ${id} does not exist`);
     }
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
   }
 });
 

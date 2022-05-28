@@ -28,15 +28,11 @@ const getAllTemperaments = async () => {
         temperamentsArrayFinal.push(temperamentsArray2[i]);
     }
 
-    //console.log("T2", temperamentsArray2);
-
     temperamentsArrayFinal.forEach((temp) => {
       Temperament.findOrCreate({
         where: { name: temp },
       });
     });
-
-    //console.log("TDB", await Temperament.findAll());
 
     console.log("Temperaments loaded in DB");
   } catch (error) {
