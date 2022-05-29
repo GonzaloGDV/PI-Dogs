@@ -13,6 +13,8 @@ const getApiDogs = async () => {
         height: e.height.metric,
         weight: e.weight.metric,
         life_span: e.life_span,
+        image: e.image.url,
+        temperament: e.temperament,
       };
     });
     return dogs;
@@ -70,9 +72,30 @@ const getNamedDogs = async (name) => {
   }
 };
 
+const getIdDog = async () => {
+  try {
+    let dogs = (
+      await axios(`https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`)
+    ).data.map((e) => {
+      return {
+        id: e.id,
+        name: e.name,
+        height: e.height.metric,
+        weight: e.weight.metric,
+        life_span: e.life_span,
+        temperament: e.temperament,
+      };
+    });
+    return dogs;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 module.exports = {
   getAllDogs,
   getApiDogs,
   getNamedDogs,
   getDBDogs,
+  getIdDog,
 };

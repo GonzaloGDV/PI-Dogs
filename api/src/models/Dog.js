@@ -7,10 +7,9 @@ module.exports = (sequelize) => {
     "dog",
     {
       id: {
-        //type: DataTypes.UUID,
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         primaryKey: true,
-        //defaultValue: DataTypes.UUIDV4,
+        defaultValue: DataTypes.UUIDV4,
         allowNull: false,
       },
       name: {
@@ -31,6 +30,9 @@ module.exports = (sequelize) => {
           let value = this.getDataValue("life_span");
           return value + " years";
         },
+      },
+      image: {
+        type: DataTypes.TEXT,
       },
     },
     { timestamps: false }
