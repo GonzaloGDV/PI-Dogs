@@ -35,12 +35,12 @@ const Home = () => {
     <div>
       <Link to="/create">Create Dog</Link>
       <select>
-        <option value="asc">Ascendent nombre</option>
-        <option value="desc">Descendent</option>
+        <option value="asc">Ascendent breed</option>
+        <option value="desc">Descendent breed</option>
       </select>
       <select>
-        <option value="asc">Ascendent peso</option>
-        <option value="desc">Descendent</option>
+        <option value="asc">Ascendent weight</option>
+        <option value="desc">Descendent weight</option>
       </select>
       <select>
         <option value="All">All dogs</option>

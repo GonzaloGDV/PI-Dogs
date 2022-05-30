@@ -1,7 +1,11 @@
 import React from "react";
 
 const NoResults = () => {
-  return <div>NoResults</div>;
+  return (
+    <div>
+      <h1>NoResults</h1>
+    </div>
+  );
 };
 
 export default NoResults;
