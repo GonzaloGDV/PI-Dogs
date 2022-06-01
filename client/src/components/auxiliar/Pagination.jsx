@@ -10,7 +10,7 @@ const Pagination = ({ dogsPerPage, totalDogs, paginate }) => {
     <nav>
       <div className="pagination">
         {pageNumbers.map((number) => (
-          <div key={number} className="page-item">
+          <div key={number} className="page-number">
             {/* <a onClick={() => paginate(number)} href="!#" className="page-link"> */}
             <button onClick={() => paginate(number)}>{number}</button>
           </div>

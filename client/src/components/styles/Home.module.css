@@ -1,0 +1,54 @@
+.homeContainer {
+  width: 100%;
+  min-height: 100%;
+  background-image: url("../../images/Paws-background.jpg");
+  /* background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover; */
+}
+
+/* .menuContainer {
+  background-color: rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+} */
+
+/* .subMenuContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+} */
+
+/* .filtersContainer {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 0 0 10px 0;
+} */
+
+.paginationList {
+  display: flex;
+  /* flex-direction: row; */
+  align-items: baseline;
+  /* place-items: center; */
+}
+
+.dogListContainer {
+  width: 50%;
+  height: 50%;
+  padding-top: 10px;
+}
+
+.dogList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 6fr));
+  place-items: center;
+  gap: 20px;
+}
+
+/* @media (max-width: 400px) {
+  .homeContainer {
+    background-image: url("../images/Paws-background.jpg");
+  }
+} */
