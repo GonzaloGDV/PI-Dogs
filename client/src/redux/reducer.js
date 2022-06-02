@@ -1,5 +1,6 @@
 import {
   GET_DOGS,
+  GET_DOG_BY_NAME,
   GET_TEMPERAMENTS,
   CREATE_DOG,
   FILTER_API_VS_CREATED,
@@ -21,6 +22,12 @@ function reducer(state = initialState, { type, payload }) {
         ...state,
         dogs: payload,
         allDogs: payload,
+      };
+
+    case GET_DOG_BY_NAME:
+      return {
+        ...state,
+        dogs: payload,
       };
 
     case GET_TEMPERAMENTS:
@@ -47,7 +54,9 @@ function reducer(state = initialState, { type, payload }) {
 
     case FILTER_BY_TEMPERAMENT:
       const allDogs2 = state.allDogs;
-      const filterTemperament = allDogs2.filter((dog) => dog.includes(payload));
+      const filterTemperament = allDogs2.filter((dog) =>
+        dog.temperament.includes(payload)
+      );
       return {
         ...state,
         dogs: filterTemperament,
@@ -75,43 +84,61 @@ function reducer(state = initialState, { type, payload }) {
       const weightArray =
         payload === "ascend"
           ? state.dogs.sort(function (a, b) {
-              // if (
-              //   parseInt(a.weight.split("-")[0]) >
-              //   parseInt(b.weight.split("-")[0])
-              // )
-              //   return 1;
-              // if (
-              //   parseInt(b.weight.split("-")[0]) >
-              //   parseInt(a.weight.split("-")[0])
-              // )
-              //   return -1;
-              // return 0;
-              return (
-                parseInt(a.weight.split("-")[0]) -
-                parseInt(b.weight.split("-")[0])
-              );
+              if (a.weight > b.weight) return 1;
+              if (b.weight > a.weight) return -1;
+              return 0;
             })
           : state.dogs.sort(function (a, b) {
-              // if (
-              //   parseInt(a.weight.split("-")[1]) >
-              //   parseInt(b.weight.split("-")[1])
-              // )
-              //   return -1;
-              // if (
-              //   parseInt(b.weight.split("-")[1]) >
-              //   parseInt(a.weight.split("-")[1])
-              // )
-              //   return 1;
-              // return 0;
-              return (
-                parseInt(b.weight.split("-")[1]) -
-                parseInt(a.weight.split("-")[1])
-              );
+              if (a.weight > b.weight) return -1;
+              if (b.weight > a.weight) return 1;
+              return 0;
             });
       return {
         ...state,
         dogs: weightArray,
       };
+
+    // case ORDER_BY_WEIGHT:
+    //   const weightArray =
+    //     payload === "ascend"
+    //       ? state.dogs.sort(function (a, b) {
+    //           // if (
+    //           //   parseInt(a.weight.split("-")[0]) >
+    //           //   parseInt(b.weight.split("-")[0])
+    //           // )
+    //           //   return 1;
+    //           // if (
+    //           //   parseInt(b.weight.split("-")[0]) >
+    //           //   parseInt(a.weight.split("-")[0])
+    //           // )
+    //           //   return -1;
+    //           // return 0;
+    //           return (
+    //             parseInt(a.weight.split("-")[0]) -
+    //             parseInt(b.weight.split("-")[0])
+    //           );
+    //         })
+    //       : state.dogs.sort(function (a, b) {
+    //           // if (
+    //           //   parseInt(a.weight.split("-")[1]) >
+    //           //   parseInt(b.weight.split("-")[1])
+    //           // )
+    //           //   return -1;
+    //           // if (
+    //           //   parseInt(b.weight.split("-")[1]) >
+    //           //   parseInt(a.weight.split("-")[1])
+    //           // )
+    //           //   return 1;
+    //           // return 0;
+    //           return (
+    //             parseInt(b.weight.split("-")[1]) -
+    //             parseInt(a.weight.split("-")[1])
+    //           );
+    //         });
+    //   return {
+    //     ...state,
+    //     dogs: weightArray,
+    //   };
 
     default:
       return state;
