@@ -2,13 +2,15 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import Pagination from "./auxiliar/Pagination";
+import Pagination from "./auxiliar/Pagination.jsx";
 import NoResults from "./NoResults";
-import SearchBar from "./auxiliar/SearchBar";
+import SearchBar from "./auxiliar/SearchBar.jsx";
+import Card from "./auxiliar/Card.jsx";
 import style from "./styles/Home.module.css";
 import {
   getAllDogs,
   getAllTemperaments,
+  //dogDetail,
   filterDogsApiVsCreated,
   filterByTemperament,
   orderByName,
@@ -45,32 +47,32 @@ const Home = () => {
     dispatch(filterDogsApiVsCreated(e.target.value));
   }
 
-  function handleFilterByTemperament(e) {
-    e.preventDefault();
-    dispatch(filterByTemperament(e.target.value));
-    setCurrentPage(1);
-    setOrder2(`Ordered ${e.target.value}`);
-  }
-
   function handleSort(e) {
     e.preventDefault();
     dispatch(orderByName(e.target.value));
     setCurrentPage(1);
-    setOrder(`Ordered ${e.target.value}`);
+    setOrder({ order });
   }
 
   function handleSort2(e) {
     e.preventDefault();
     dispatch(orderByWeight(e.target.value));
     setCurrentPage(1);
-    setOrder(`Ordered ${e.target.value}`);
+    setOrder({ order });
+  }
+
+  function handleFilterByTemperament(e) {
+    e.preventDefault();
+    dispatch(filterByTemperament(e.target.value));
+    setCurrentPage(1);
+    setOrder2({ order2 });
   }
 
   return (
     <div className={style.homeContainer}>
       <Link to="/create">Create Dog</Link>
 
-      <select onChange={(e) => handleFilterApiVsCreated(e)}>
+      <select onChange={handleFilterApiVsCreated}>
         <option value="All">All dogs</option>
         <option value="api">API dogs</option>
         <option value="created">Created dogs</option>
@@ -78,10 +80,7 @@ const Home = () => {
 
       <div className={style.filterTemperament}>
         <label>Filter by temperament:</label>
-        <select
-          defaultValue={"DEFAULT"}
-          onChange={(e) => handleFilterByTemperament(e)}
-        >
+        <select defaultValue={"DEFAULT"} onChange={handleFilterByTemperament}>
           <option value="DEFAULT" disabled>
             Choose temperament
           </option>
@@ -91,20 +90,17 @@ const Home = () => {
                 <option key={temperament.id} value={temperament.name}>
                   {temperament.name}
                 </option>
-                //   <option key={temperament.name} value={temperament.name}>
-                //   {temperament.name}
-                // </option>
               );
             })}
         </select>
       </div>
 
-      <select onChange={(e) => handleSort(e)}>
+      <select onChange={handleSort}>
         <option value="ascend">Ascendent breed</option>
         <option value="descend">Descendent breed</option>
       </select>
 
-      <select onChange={(e) => handleSort2(e)}>
+      <select onChange={handleSort2}>
         <option value="ascend">Ascendent weight</option>
         <option value="descend">Descendent weight</option>
       </select>
@@ -115,14 +111,15 @@ const Home = () => {
         {currentDogs.length > 0 ? (
           currentDogs.map((dog) => {
             return (
-              <div key={dog.id}>
-                <div className={style.dogList}>
-                  <img src={dog.image} alt={dog.name} />
-                  <h3>{dog.name}</h3>
-                  <h6>{dog.temperament}</h6>
-                  <h6>{dog.weight} kgs.</h6>
-                </div>
-              </div>
+              <Link to={`/details/${dog.id}`}>
+                <Card
+                  key={dog.id}
+                  image={dog.image}
+                  name={dog.name}
+                  temperament={dog.temperament}
+                  weight={dog.weight}
+                />
+              </Link>
             );
           })
         ) : (

@@ -2,11 +2,12 @@ import axios from "axios";
 export const GET_DOGS = "GET_DOGS";
 export const GET_TEMPERAMENTS = "GET_TEMPERAMENTS";
 export const GET_DOG_BY_NAME = "GET_DOG_BY_NAME";
+export const DOG_DETAIL = "DOG_DETAIL";
+export const CREATE_DOG = "CREATE_DOG";
 export const FILTER_API_VS_CREATED = "FILTER_API_VS_CREATED";
 export const FILTER_BY_TEMPERAMENT = "FILTER_BY_TEMPERAMENT";
 export const ORDER_BY_NAME = "ORDER_BY_NAME";
 export const ORDER_BY_WEIGHT = "ORDER_BY_WEIGHT";
-export const CREATE_DOG = "CREATE_DOG";
 
 export function getAllDogs() {
   return (dispatch) => {
@@ -32,10 +33,17 @@ export function getAllTemperaments() {
   };
 }
 
+export function dogDetail(id) {
+  return (dispatch) => {
+    return axios(`http://localhost:3001/dogs/${id}`)
+      .then((res) => dispatch({ type: DOG_DETAIL, payload: res.data }))
+      .catch((error) => console.log(error));
+  };
+}
+
 export function createDog(payload) {
   return (dispatch) => {
     return axios.post("http://localhost:3001/dog/", payload);
-    // .then((res) => dispatch({ type: CREATE_DOG, payload }));
   };
 }
 

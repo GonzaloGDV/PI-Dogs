@@ -2,9 +2,11 @@ import React from "react";
 import { getDogByName } from "../../redux/actions";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const SearchBar = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [name, setName] = useState("");
 
   function handleInputChange(e) {
@@ -14,6 +16,11 @@ const SearchBar = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
+    if (!name) {
+      setTimeout(() => {
+        navigate("/noresults");
+      }, 100);
+    }
     dispatch(getDogByName(name));
     //setName({ name: " " });
   }

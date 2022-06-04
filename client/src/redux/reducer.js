@@ -2,6 +2,7 @@ import {
   GET_DOGS,
   GET_DOG_BY_NAME,
   GET_TEMPERAMENTS,
+  DOG_DETAIL,
   CREATE_DOG,
   FILTER_API_VS_CREATED,
   ORDER_BY_NAME,
@@ -13,6 +14,7 @@ const initialState = {
   dogs: [],
   temperaments: [],
   allDogs: [],
+  dogDetail: [],
 };
 
 function reducer(state = initialState, { type, payload }) {
@@ -36,6 +38,12 @@ function reducer(state = initialState, { type, payload }) {
         temperaments: payload,
       };
 
+    case DOG_DETAIL:
+      return {
+        ...state,
+        dogDetail: payload,
+      };
+
     case CREATE_DOG:
       return {
         ...state,
@@ -54,8 +62,8 @@ function reducer(state = initialState, { type, payload }) {
 
     case FILTER_BY_TEMPERAMENT:
       const allDogs2 = state.allDogs;
-      const filterTemperament = allDogs2.filter((dog) =>
-        dog.temperament.includes(payload)
+      const filterTemperament = allDogs2.filter(
+        (dog) => dog.temperament && dog.temperament.includes(payload)
       );
       return {
         ...state,

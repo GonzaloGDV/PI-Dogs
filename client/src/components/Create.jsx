@@ -20,8 +20,8 @@ const Create = () => {
     name: "",
     height: "",
     weight: "",
-    lifeSpan: "",
-    img: "",
+    life_span: "",
+    image: "",
     temperament: [],
   });
 
@@ -51,27 +51,22 @@ const Create = () => {
     } else if (!/^[0-9]*$/.test(input.weight)) {
       errors.weight = "Weight is invalid. Only Integers";
     }
-    if (!input.lifeSpan) {
-      errors.lifeSpan = "Life Span is required";
-    } else if (!/^[0-9]*$/.test(input.lifeSpan)) {
-      errors.lifeSpan = "Life Span is invalid. Only Integers";
+    if (!input.life_span) {
+      errors.life_span = "Life Span is required";
+    } else if (!/^[0-9]*$/.test(input.life_span)) {
+      errors.life_span = "Life Span is invalid. Only Integers";
     }
-    if (!input.img) {
-      errors.img = "Image url is required";
-    } else if (!/\.(jpg|png|gif)$/i.test(input.img)) {
-      errors.img = "Image url is invalid";
+    if (!input.image) {
+      errors.image = "Image url is required";
+    } else if (!/\.(jpg|png|gif)$/i.test(input.image)) {
+      errors.image = "Image url is invalid";
     }
     return errors;
   }
 
   //**********Handlers**********
 
-  // const handleInputChange = (e) => {
-  //   setInput((prev) => ({
-  //     ...prev,
-  //     [e.target.name]: e.target.value,
-  //   }));
-  function handleInputChange(e) {
+  function handlerInputChange(e) {
     setInput({
       ...input,
       [e.target.name]: e.target.value,
@@ -84,29 +79,21 @@ const Create = () => {
     );
   }
 
-  // function handleSubmit(e) {
-  //   e.preventDefault();
-  //   console.log(input);
-  // }
-
-  const handlerFirstSelect = (e) => {
-    if (input.temperament.length <= 1) {
+  function handlerSelect(e) {
+    if (!input.temperament.includes(e.target.value)) {
       setInput({
         ...input,
-        temperament: [e.target.value],
-      });
-    } else if (e.target.value === input.temperament[1]) {
-      setInput({
-        ...input,
-        temperament: [e.target.value],
-      });
-    } else {
-      setInput({
-        ...input,
-        temperament: [e.target.value, input.temperament[1]],
+        temperament: [...input.temperament, e.target.value],
       });
     }
-  };
+  }
+
+  function handlerDelete(temp) {
+    setInput({
+      ...input,
+      temperament: input.temperament.filter((selected) => selected !== temp),
+    });
+  }
 
   //********Create Button********
   const handlerCreateDog = (e) => {
@@ -117,8 +104,8 @@ const Create = () => {
       name: "",
       height: "",
       weight: "",
-      lifeSpan: "",
-      img: "",
+      life_span: "",
+      image: "",
       temperament: [],
     });
     setTimeout(() => {
@@ -135,8 +122,8 @@ const Create = () => {
       errors.hasOwnProperty("name") ||
       errors.hasOwnProperty("height") ||
       errors.hasOwnProperty("weight") ||
-      errors.hasOwnProperty("lifeSpan") ||
-      errors.hasOwnProperty("img") ||
+      errors.hasOwnProperty("life_span") ||
+      errors.hasOwnProperty("image") ||
       errors.hasOwnProperty("temperament")
     ) {
       setDisabledButton(true);
@@ -150,14 +137,13 @@ const Create = () => {
       <h1>Create your dog</h1>
       <Link to="/home">Home</Link>
       <form>
-        {/* <form onSubmit={handleSubmit}> */}
         <div>
           <label>Name:</label>
           <input
             className={errors.name && style.danger}
             type="text"
             name="name"
-            onChange={handleInputChange}
+            onChange={handlerInputChange}
             value={input.name}
             placeholder={"Type dog breed"}
             autoComplete="off"
@@ -171,7 +157,7 @@ const Create = () => {
             className={errors.height && style.danger}
             type="text"
             name="height"
-            onChange={handleInputChange}
+            onChange={handlerInputChange}
             value={input.height}
             placeholder={"Type height (cm)"}
             autoComplete="off"
@@ -185,7 +171,7 @@ const Create = () => {
             className={errors.weight && style.danger}
             type="text"
             name="weight"
-            onChange={handleInputChange}
+            onChange={handlerInputChange}
             value={input.weight}
             placeholder={"Type weight (kg)"}
             autoComplete="off"
@@ -196,39 +182,38 @@ const Create = () => {
         <div>
           <label>Life Span:</label>
           <input
-            className={errors.lifeSpan && style.danger}
+            className={errors.life_span && style.danger}
             type="text"
-            name="lifeSpan"
-            onChange={handleInputChange}
-            value={input.lifeSpan}
+            name="life_span"
+            onChange={handlerInputChange}
+            value={input.life_span}
             placeholder={"Type life span (years)"}
             autoComplete="off"
           />
-          {errors.lifeSpan && <p className={style.danger}>{errors.lifeSpan}</p>}
+          {errors.life_span && (
+            <p className={style.danger}>{errors.life_span}</p>
+          )}
         </div>
 
         <div>
           <label>Image URL:</label>
           <input
-            className={errors.img && style.danger}
+            className={errors.image && style.danger}
             type="text"
-            name="img"
-            onChange={handleInputChange}
-            value={input.img}
+            name="image"
+            onChange={handlerInputChange}
+            value={input.image}
             placeholder={"Type image URL"}
             autoComplete="off"
           />
-          {errors.img && <p className={style.danger}>{errors.img}</p>}
+          {errors.image && <p className={style.danger}>{errors.image}</p>}
         </div>
 
         <div className={style.selectTemperament}>
-          <label>Choose first temperament:</label>
-          <select
-            defaultValue={"DEFAULT"}
-            onChange={(e) => handlerFirstSelect(e)}
-          >
+          <label>Choose temperament:</label>
+          <select defaultValue={"DEFAULT"} onChange={handlerSelect}>
             <option value="DEFAULT" disabled>
-              Choose first temperament
+              Choose temperament
             </option>
             {allTemperaments &&
               allTemperaments.map((temperament) => {
@@ -236,18 +221,27 @@ const Create = () => {
                   <option key={temperament.id} value={temperament.name}>
                     {temperament.name}
                   </option>
-                  //    <option key={temperament.name} value={temperament.name}>
-                  //    {temperament.name}
-                  //  </option>
                 );
               })}
           </select>
         </div>
 
+        <ul>
+          {input.temperament.map((temp) => (
+            <li key={temp.id}>
+              <span>{temp}</span>
+
+              <button type="button" onClick={() => handlerDelete(temp)}>
+                X
+              </button>
+            </li>
+          ))}
+        </ul>
+
         <button
           disabled={disabledButton}
           className={style.buttonCreateDog}
-          onClick={(e) => handlerCreateDog(e)}
+          onClick={handlerCreateDog}
         >
           Create dog
         </button>
