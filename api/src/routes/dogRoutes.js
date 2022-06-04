@@ -5,13 +5,14 @@ const router = Router();
 
 router.post("/", async (req, res) => {
   try {
-    const { name, height, weight, life_span, temperament } = req.body;
+    const { name, height, weight, life_span, image, temperament } = req.body;
 
     const createDog = await Dog.create({
       name,
       height,
       weight,
       life_span,
+      image,
     });
 
     const temperamentDB = await Temperament.findAll({
