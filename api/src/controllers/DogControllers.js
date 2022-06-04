@@ -17,7 +17,16 @@ const getApiDogs = async () => {
         temperament: e.temperament,
       };
     });
-    return dogs;
+
+    const dogsFiltered = dogs.filter((dog) => !dog.weight.includes("NaN"));
+
+    const dogsFiltered2 = dogsFiltered.filter((dog) => dog.weight.length > 2);
+
+    const dogsFiltered3 = dogsFiltered2.filter(
+      (dog) => !dog.life_span.includes("Years")
+    );
+
+    return dogsFiltered3;
   } catch (error) {
     console.log(error.message);
   }
@@ -44,7 +53,7 @@ const getAllDogs = async () => {
   try {
     const apiDogs = await getApiDogs();
     const DBDogs = await getDBDogs();
-    const all = apiDogs.concat(DBDogs);
+    const all = DBDogs.concat(apiDogs);
     return all;
   } catch (error) {
     console.log(error.message);

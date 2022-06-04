@@ -5,7 +5,7 @@ const router = Router();
 
 router.post("/", async (req, res) => {
   try {
-    const { name, height, weight, life_span, image, temperament } = req.body;
+    const { name, height, weight, life_span, image, temperaments } = req.body;
 
     const createDog = await Dog.create({
       name,
@@ -16,7 +16,7 @@ router.post("/", async (req, res) => {
     });
 
     const temperamentDB = await Temperament.findAll({
-      where: { name: temperament },
+      where: { name: temperaments },
     });
 
     await createDog.addTemperament(temperamentDB);

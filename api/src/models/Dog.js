@@ -31,6 +31,11 @@ module.exports = (sequelize) => {
           return value + " years";
         },
       },
+      created: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: true,
+      },
       image: {
         type: DataTypes.TEXT,
       },
