@@ -10,7 +10,6 @@ import style from "./styles/Home.module.css";
 import {
   getAllDogs,
   getAllTemperaments,
-  //dogDetail,
   filterDogsApiVsCreated,
   filterByTemperament,
   orderByName,
@@ -72,60 +71,69 @@ const Home = () => {
     <div className={style.homeContainer}>
       <Link to="/create">Create Dog</Link>
 
-      <select onChange={handleFilterApiVsCreated}>
-        <option value="All">All dogs</option>
-        <option value="api">API dogs</option>
-        <option value="created">Created dogs</option>
-      </select>
-
-      <div className={style.filterTemperament}>
-        <label>Filter by temperament:</label>
-        <select defaultValue={"DEFAULT"} onChange={handleFilterByTemperament}>
-          <option value="DEFAULT" disabled>
-            Choose temperament
-          </option>
-          {allTemperaments &&
-            allTemperaments.map((temperament) => {
-              return (
-                <option key={temperament.id} value={temperament.name}>
-                  {temperament.name}
-                </option>
-              );
-            })}
+      <div className={style.menuContainer}>
+        <select onChange={handleFilterApiVsCreated}>
+          <option value="All">All dogs</option>
+          <option value="api">API dogs</option>
+          <option value="created">Created dogs</option>
         </select>
+
+        <div className={style.filterTemperament}>
+          <label>Filter by temperament:</label>
+          <select defaultValue={"DEFAULT"} onChange={handleFilterByTemperament}>
+            <option value="DEFAULT" disabled>
+              Choose temperament
+            </option>
+            <option value="All">All dogs</option>
+            {allTemperaments &&
+              allTemperaments.map((temperament) => {
+                return (
+                  <option key={temperament.id} value={temperament.name}>
+                    {temperament.name}
+                  </option>
+                );
+              })}
+          </select>
+        </div>
+
+        <select onChange={handleSort}>
+          <option value="ascend">Ascendent breed</option>
+          <option value="descend">Descendent breed</option>
+        </select>
+
+        <select onChange={handleSort2}>
+          <option value="lighter">Ascendent weight</option>
+          <option value="heavier">Descendent weight</option>
+        </select>
+
+        <SearchBar />
       </div>
 
-      <select onChange={handleSort}>
-        <option value="ascend">Ascendent breed</option>
-        <option value="descend">Descendent breed</option>
-      </select>
-
-      <select onChange={handleSort2}>
-        <option value="ascend">Ascendent weight</option>
-        <option value="descend">Descendent weight</option>
-      </select>
-
-      <SearchBar />
-
-      <ul className={style.dogListContainer}>
-        {currentDogs.length > 0 ? (
-          currentDogs.map((dog) => {
-            return (
-              <Link to={`/details/${dog.id}`}>
-                <Card
-                  key={dog.id}
-                  image={dog.image}
-                  name={dog.name}
-                  temperament={dog.temperament}
-                  weight={dog.weight}
-                />
-              </Link>
-            );
-          })
-        ) : (
-          <NoResults />
-        )}
-      </ul>
+      <div className={style.dogListContainer}>
+        <ul className={style.dogList}>
+          {currentDogs.length > 0 ? (
+            currentDogs.map((dog) => {
+              return (
+                <Link to={`/details/${dog.id}`}>
+                  <Card
+                    key={dog.id}
+                    image={dog.image}
+                    name={dog.name}
+                    temperaments={
+                      !dog.created
+                        ? dog.temperament
+                        : dog.temperaments.map((temp) => temp.name + " ")
+                    }
+                    weight={`${dog.weight} kg`}
+                  />
+                </Link>
+              );
+            })
+          ) : (
+            <NoResults />
+          )}
+        </ul>
+      </div>
 
       <div className={style.paginationList}>
         <Pagination

@@ -18,11 +18,12 @@ const Create = () => {
 
   const [input, setInput] = useState({
     name: "",
-    height: "",
+    height_min: "",
+    height_max: "",
     weight: "",
     life_span: "",
     image: "",
-    temperament: [],
+    temperaments: [],
   });
 
   //********Error management********
@@ -41,10 +42,18 @@ const Create = () => {
     } else if (!/^[a-zA-Z]+(([a-zA-Z ])?[a-zA-Z]*)*$/.test(input.name)) {
       errors.name = "Name is invalid. Only letters";
     }
+    // if (!input.height_min) {
+    //   errors.height_min = "Minimum height is required";
+    // } else if (!/^[0-9]*$/.test(input.height_min)) {
+    //   errors.height_min = "Minimum height is invalid. Only integers";
+    // } else if (input.height_min > input.height_max) {
+    //   errors.height_min =
+    //     "Minimum height is invalid. It can not be lower than maximum height";
+    // }
     if (!input.height) {
-      errors.height = "Height is required";
+      errors.height = "Maximum height is required";
     } else if (!/^[0-9]*$/.test(input.height)) {
-      errors.height = "Height is invalid. Only integers";
+      errors.height = "Maximum eight is invalid. Only integers";
     }
     if (!input.weight) {
       errors.weight = "Weight is required";
@@ -80,10 +89,10 @@ const Create = () => {
   }
 
   function handlerSelect(e) {
-    if (!input.temperament.includes(e.target.value)) {
+    if (!input.temperaments.includes(e.target.value)) {
       setInput({
         ...input,
-        temperament: [...input.temperament, e.target.value],
+        temperaments: [...input.temperaments, e.target.value],
       });
     }
   }
@@ -91,7 +100,7 @@ const Create = () => {
   function handlerDelete(temp) {
     setInput({
       ...input,
-      temperament: input.temperament.filter((selected) => selected !== temp),
+      temperaments: input.temperaments.filter((selected) => selected !== temp),
     });
   }
 
@@ -106,11 +115,11 @@ const Create = () => {
       weight: "",
       life_span: "",
       image: "",
-      temperament: [],
+      temperaments: [],
     });
     setTimeout(() => {
       navigate("/home");
-    }, 1000);
+    }, 100);
   };
 
   const [disabledButton, setDisabledButton] = useState(true);
@@ -118,13 +127,14 @@ const Create = () => {
   useEffect(() => {
     if (
       input.name === "" ||
-      input.temperament.length < 1 ||
+      input.temperaments.length < 1 ||
       errors.hasOwnProperty("name") ||
       errors.hasOwnProperty("height") ||
+      // errors.hasOwnProperty("height_max") ||
       errors.hasOwnProperty("weight") ||
       errors.hasOwnProperty("life_span") ||
       errors.hasOwnProperty("image") ||
-      errors.hasOwnProperty("temperament")
+      errors.hasOwnProperty("temperaments")
     ) {
       setDisabledButton(true);
     } else {
@@ -133,7 +143,7 @@ const Create = () => {
   }, [errors, input, setDisabledButton]);
 
   return (
-    <div>
+    <div className={style.Container}>
       <h1>Create your dog</h1>
       <Link to="/home">Home</Link>
       <form>
@@ -151,15 +161,31 @@ const Create = () => {
           {errors.name && <p className={style.danger}>{errors.name}</p>}
         </div>
 
+        {/* <div>
+          <label>Height minimum:</label>
+          <input
+            className={errors.height_min && style.danger}
+            type="text"
+            name="height_min"
+            onChange={handlerInputChange}
+            value={input.height_min}
+            placeholder={"Type height min (cm)"}
+            autoComplete="off"
+          />
+          {errors.height_min && (
+            <p className={style.danger}>{errors.height_min}</p>
+          )}
+        </div> */}
+
         <div>
-          <label>Height:</label>
+          <label>Height maximum:</label>
           <input
             className={errors.height && style.danger}
             type="text"
             name="height"
             onChange={handlerInputChange}
             value={input.height}
-            placeholder={"Type height (cm)"}
+            placeholder={"Type height max(cm)"}
             autoComplete="off"
           />
           {errors.height && <p className={style.danger}>{errors.height}</p>}
@@ -227,7 +253,7 @@ const Create = () => {
         </div>
 
         <ul>
-          {input.temperament.map((temp) => (
+          {input.temperaments.map((temp) => (
             <li key={temp.id}>
               <span>{temp}</span>
 

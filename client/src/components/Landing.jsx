@@ -1,15 +1,15 @@
 import React from "react";
-import Budhi from "../images/budhi.jpg";
+import Budhi from "../images/budhi.jpeg";
 import { Link } from "react-router-dom";
 import style from "./styles/Landing.module.css";
 
 const Landing = () => {
   return (
-    <div>
-      <h1>Welcome to Dogs PI</h1>
-      <img className={style.Container} src={Budhi} alt="Welcome Budhi" />
+    <div className={style.Container}>
+      <h1 className={style.welcome}>Welcome to Dogs PI</h1>
+      <img className={style.photo} src={Budhi} alt="Welcome Budhi" />
       <Link to="/home">
-        <button>Start</button>
+        <button className={style.button}>Start</button>
       </Link>
     </div>
   );

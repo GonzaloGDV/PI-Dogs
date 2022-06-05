@@ -1,4 +1,27 @@
 .Container {
-  width: 100%;
-  min-height: 100%;
+  display: flex;
+  /* background-size: 100%; */
+  background-size: cover;
+}
+
+.photo {
+  width: 1433px;
+  height: 791px;
+}
+
+.welcome {
+  position: absolute;
+  left: 50%;
+  top: 5%;
+}
+
+.button {
+  position: absolute;
+  height: 70px;
+  width: 140px;
+  left: 50%;
+  top: 50%;
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
 }

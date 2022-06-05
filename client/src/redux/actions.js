@@ -1,4 +1,5 @@
 import axios from "axios";
+//import { formatError } from "../components/auxiliar/SearchBar";
 export const GET_DOGS = "GET_DOGS";
 export const GET_TEMPERAMENTS = "GET_TEMPERAMENTS";
 export const GET_DOG_BY_NAME = "GET_DOG_BY_NAME";
@@ -8,6 +9,8 @@ export const FILTER_API_VS_CREATED = "FILTER_API_VS_CREATED";
 export const FILTER_BY_TEMPERAMENT = "FILTER_BY_TEMPERAMENT";
 export const ORDER_BY_NAME = "ORDER_BY_NAME";
 export const ORDER_BY_WEIGHT = "ORDER_BY_WEIGHT";
+export const ORDER_DOGS = "ORDER_DOGS";
+export const FAILED_GET_DOG = "FAILED_GET_DOG";
 
 export function getAllDogs() {
   return (dispatch) => {
@@ -21,7 +24,13 @@ export function getDogByName(breed) {
   return (dispatch) => {
     return axios(`http://localhost:3001/dogs?name=${breed}`)
       .then((res) => dispatch({ type: GET_DOG_BY_NAME, payload: res.data }))
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error.response));
+    // .catch((error) => {
+    //   dispatch({
+    //     type: "FAILED_GET_DOG",
+    //     message: error.message || "Something went wrong.",
+    //   });
+    // })
   };
 }
 
@@ -74,3 +83,17 @@ export function orderByWeight(payload) {
     payload,
   };
 }
+
+export function orderDogs(payload) {
+  return {
+    type: ORDER_DOGS,
+    payload,
+  };
+}
+
+// export function searchFailedAction(message) {
+//   return {
+//     type: SEARCH_FAILED_ACTION,
+//     payload: message,
+//   };
+// }

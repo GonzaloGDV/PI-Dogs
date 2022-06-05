@@ -1,6 +1,7 @@
 import {
   GET_DOGS,
   GET_DOG_BY_NAME,
+  // FAILED_GET_DOG,
   GET_TEMPERAMENTS,
   DOG_DETAIL,
   CREATE_DOG,
@@ -31,6 +32,9 @@ function reducer(state = initialState, { type, payload }) {
         ...state,
         dogs: payload,
       };
+
+    // case FAILED_GET_DOG:
+    //   return false;
 
     case GET_TEMPERAMENTS:
       return {
@@ -67,22 +71,32 @@ function reducer(state = initialState, { type, payload }) {
       );
       return {
         ...state,
-        dogs: filterTemperament,
+        dogs: payload === "All" ? state.allDogs : filterTemperament,
       };
+
+    // case ORDER_BY_NAME:
+    //   const orderedArray =
+    //     payload === "ascend"
+    //       ? state.dogs.sort(function (a, b) {
+    //           if (a.name > b.name) return 1;
+    //           if (b.name > a.name) return -1;
+    //           return 0;
+    //         })
+    //       : state.dogs.sort(function (a, b) {
+    //           if (a.name > b.name) return -1;
+    //           if (b.name > a.name) return 1;
+    //           return 0;
+    //         });
+    //   return {
+    //     ...state,
+    //     dogs: orderedArray,
+    //   };
 
     case ORDER_BY_NAME:
       const orderedArray =
         payload === "ascend"
-          ? state.dogs.sort(function (a, b) {
-              if (a.name > b.name) return 1;
-              if (b.name > a.name) return -1;
-              return 0;
-            })
-          : state.dogs.sort(function (a, b) {
-              if (a.name > b.name) return -1;
-              if (b.name > a.name) return 1;
-              return 0;
-            });
+          ? state.dogs.sort((a, b) => a.name.localeCompare(b.name))
+          : state.dogs.sort((a, b) => b.name.localeCompare(a.name));
       return {
         ...state,
         dogs: orderedArray,
@@ -90,63 +104,24 @@ function reducer(state = initialState, { type, payload }) {
 
     case ORDER_BY_WEIGHT:
       const weightArray =
-        payload === "ascend"
+        payload === "lighter"
           ? state.dogs.sort(function (a, b) {
-              if (a.weight > b.weight) return 1;
-              if (b.weight > a.weight) return -1;
-              return 0;
+              return (
+                parseInt(a.weight.split("-")[0]) -
+                parseInt(b.weight.split("-")[0])
+              );
             })
           : state.dogs.sort(function (a, b) {
-              if (a.weight > b.weight) return -1;
-              if (b.weight > a.weight) return 1;
-              return 0;
+              return (
+                parseInt(b.weight.split("-")[1]) -
+                parseInt(a.weight.split("-")[1])
+              );
             });
+
       return {
         ...state,
         dogs: weightArray,
       };
-
-    // case ORDER_BY_WEIGHT:
-    //   const weightArray =
-    //     payload === "ascend"
-    //       ? state.dogs.sort(function (a, b) {
-    //           // if (
-    //           //   parseInt(a.weight.split("-")[0]) >
-    //           //   parseInt(b.weight.split("-")[0])
-    //           // )
-    //           //   return 1;
-    //           // if (
-    //           //   parseInt(b.weight.split("-")[0]) >
-    //           //   parseInt(a.weight.split("-")[0])
-    //           // )
-    //           //   return -1;
-    //           // return 0;
-    //           return (
-    //             parseInt(a.weight.split("-")[0]) -
-    //             parseInt(b.weight.split("-")[0])
-    //           );
-    //         })
-    //       : state.dogs.sort(function (a, b) {
-    //           // if (
-    //           //   parseInt(a.weight.split("-")[1]) >
-    //           //   parseInt(b.weight.split("-")[1])
-    //           // )
-    //           //   return -1;
-    //           // if (
-    //           //   parseInt(b.weight.split("-")[1]) >
-    //           //   parseInt(a.weight.split("-")[1])
-    //           // )
-    //           //   return 1;
-    //           // return 0;
-    //           return (
-    //             parseInt(b.weight.split("-")[1]) -
-    //             parseInt(a.weight.split("-")[1])
-    //           );
-    //         });
-    //   return {
-    //     ...state,
-    //     dogs: weightArray,
-    //   };
 
     default:
       return state;

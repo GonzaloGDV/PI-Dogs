@@ -1,3 +1,10 @@
+.Container {
+  background-image: url("../../images/Paws-background.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 p.danger {
   color: red;
   font-size: 10px;

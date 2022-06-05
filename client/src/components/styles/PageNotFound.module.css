@@ -1,4 +1,19 @@
 .Container {
-  width: 100%;
-  min-height: 100%;
+  background-image: url("../../images/Paws-background.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.photo {
+  width: 910px;
+  height: 580px;
+  position: relative;
+  left: 19%;
+}
+
+.title {
+  position: relative;
+  left: 45%;
+  top: 15%;
 }
