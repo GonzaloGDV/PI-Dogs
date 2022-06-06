@@ -5,12 +5,12 @@ const router = Router();
 
 router.post("/", async (req, res) => {
   try {
-    const { name, height, weight, life_span, image, temperaments } = req.body;
+    const { name, weight, height, life_span, image, temperaments } = req.body;
 
     const createDog = await Dog.create({
       name,
-      height,
       weight,
+      height,
       life_span,
       image,
     });
