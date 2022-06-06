@@ -1,5 +1,4 @@
 import axios from "axios";
-//import { formatError } from "../components/auxiliar/SearchBar";
 export const GET_DOGS = "GET_DOGS";
 export const GET_TEMPERAMENTS = "GET_TEMPERAMENTS";
 export const GET_DOG_BY_NAME = "GET_DOG_BY_NAME";
@@ -24,13 +23,12 @@ export function getDogByName(breed) {
   return (dispatch) => {
     return axios(`http://localhost:3001/dogs?name=${breed}`)
       .then((res) => dispatch({ type: GET_DOG_BY_NAME, payload: res.data }))
-      .catch((error) => console.log(error.response));
-    // .catch((error) => {
-    //   dispatch({
-    //     type: "FAILED_GET_DOG",
-    //     message: error.message || "Something went wrong.",
-    //   });
-    // })
+      .catch((error) => {
+        dispatch({
+          type: "FAILED_GET_DOG",
+          message: error.message || "Something went wrong.",
+        });
+      });
   };
 }
 
@@ -90,10 +88,3 @@ export function orderDogs(payload) {
     payload,
   };
 }
-
-// export function searchFailedAction(message) {
-//   return {
-//     type: SEARCH_FAILED_ACTION,
-//     payload: message,
-//   };
-// }

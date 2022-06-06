@@ -3,6 +3,50 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+
+  height: 100vh;
+}
+
+.title {
+  position: absolute;
+  left: 40%;
+  top: 5%;
+  color: black;
+  font-size: 45px;
+}
+
+.linkHome {
+  position: absolute;
+  left: 5%;
+  top: 6%;
+  color: rgb(30, 218, 251);
+  font-size: 25px;
+  font-weight: 600;
+  text-shadow: 0 0 1px black, 0 0 1px black, 0 0 1px black, 0 0 1px black;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.linkHome:hover {
+  color: gray;
+  text-shadow: 0 0 1px rgb(30, 218, 251), 0 0 1px rgb(30, 218, 251),
+    0 0 1px rgb(30, 218, 251), 0 0 1px rgb(30, 218, 251);
+}
+
+.formContainer {
+  /* background-color: rgba(0, 0, 0, 0.3); */
+  /* box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5); */
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 200px;
+}
+
+.submitButton {
+  padding-bottom: 20px;
+  cursor: pointer;
 }
 
 p.danger {

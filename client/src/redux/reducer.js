@@ -1,7 +1,7 @@
 import {
   GET_DOGS,
   GET_DOG_BY_NAME,
-  // FAILED_GET_DOG,
+  FAILED_GET_DOG,
   GET_TEMPERAMENTS,
   DOG_DETAIL,
   CREATE_DOG,
@@ -16,6 +16,7 @@ const initialState = {
   temperaments: [],
   allDogs: [],
   dogDetail: [],
+  noResults: "",
 };
 
 function reducer(state = initialState, { type, payload }) {
@@ -33,8 +34,11 @@ function reducer(state = initialState, { type, payload }) {
         dogs: payload,
       };
 
-    // case FAILED_GET_DOG:
-    //   return false;
+    case FAILED_GET_DOG:
+      return {
+        ...state,
+        noResults: false,
+      };
 
     case GET_TEMPERAMENTS:
       return {

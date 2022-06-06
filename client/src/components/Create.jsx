@@ -144,9 +144,11 @@ const Create = () => {
 
   return (
     <div className={style.Container}>
-      <h1>Create your dog</h1>
-      <Link to="/home">Home</Link>
-      <form>
+      <h1 className={style.title}>Create your dog</h1>
+      <Link to="/home" className={style.linkHome}>
+        Home
+      </Link>
+      <form className={style.formContainer}>
         <div>
           <label>Name:</label>
           <input
@@ -257,7 +259,11 @@ const Create = () => {
             <li key={temp.id}>
               <span>{temp}</span>
 
-              <button type="button" onClick={() => handlerDelete(temp)}>
+              <button
+                type="button"
+                className={style.submitButton}
+                onClick={() => handlerDelete(temp)}
+              >
                 X
               </button>
             </li>

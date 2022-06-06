@@ -18,9 +18,17 @@ export default function Details() {
 
   return (
     <div className={style.Container}>
-      <Link to="/home">Home</Link>
-      <div>
-        <img src={dogSelected.image} alt="" />
+      <Link to="/home" className={style.linkHome}>
+        Home
+      </Link>
+      <div className={style.render}>
+        <img
+          src={dogSelected.image}
+          alt={dogSelected.name}
+          width="500px"
+          height="400px"
+          className={style.photo}
+        />
         <h1>{dogSelected.name}</h1>
         <h3>
           {!dogSelected.created

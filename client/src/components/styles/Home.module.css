@@ -1,4 +1,5 @@
 .homeContainer {
+  display: flex;
   background-image: url("../../images/Paws-background.jpg");
   background-position: center;
   background-repeat: no-repeat;
@@ -6,34 +7,68 @@
 }
 
 .menuContainer {
+  position: fixed;
   background-color: rgba(0, 0, 0, 0.3);
   box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(10px);
   display: flex;
+  width: 100%;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-.paginationList {
-  display: grid;
-  flex-direction: column;
-  /* align-items: baseline; */
-  place-items: center;
+.linkCreate {
+  position: fixed;
+  left: 3%;
+  top: 35%;
+  color: rgb(30, 218, 251);
+  font-size: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.linkCreate:hover {
+  color: gray;
 }
 
 .dogListContainer {
   width: 100%;
   height: 100%;
-  padding-top: 10px;
+  padding-top: 100px;
 }
 
 .dogList {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 100fr));
+  /* grid-template-rows: 100px 300px; */
   place-items: center;
   gap: 20px;
   text-decoration: none;
+}
+
+.filterApiVsCreated {
+  font-size: 13.5px;
+}
+
+.filterTemperament {
+  font-size: 13.5px;
+}
+
+.orderBreed {
+  font-size: 13.5px;
+}
+
+.orderWeight {
+  font-size: 13.5px;
+}
+
+.paginationList {
+  /* display: flex; */
+  flex-direction: row;
+  text-align: center;
+  place-items: center;
 }
 
 /* @media (max-width: 400px) {
