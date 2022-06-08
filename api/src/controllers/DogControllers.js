@@ -26,7 +26,9 @@ const getApiDogs = async () => {
       (dog) => !dog.life_span.includes("Years")
     );
 
-    return dogsFiltered3;
+    const dogsFiltered4 = dogsFiltered3.filter((dog) => dog.temperament);
+
+    return dogsFiltered4;
   } catch (error) {
     console.log(error.message);
   }
