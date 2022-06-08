@@ -45,6 +45,7 @@ const Home = () => {
 
   //**********Handlers**********
   function handleFilterApiVsCreated(e) {
+    e.preventDefault();
     dispatch(filterDogsApiVsCreated(e.target.value));
     setCurrentPage(1);
   }
@@ -155,6 +156,7 @@ const Home = () => {
           paginate={paginate}
           currentPage={currentPage}
         />
+
         <button className={style.allDogsButton} onClick={refreshPage}>
           Show all dogs
         </button>
@@ -167,7 +169,11 @@ const Home = () => {
           ) : (
             currentDogs.map((dog) => {
               return (
-                <Link className={style.link} to={`/details/${dog.id}`}>
+                <Link
+                  className={style.link}
+                  key={dog.id}
+                  to={`/details/${dog.id}`}
+                >
                   <Card
                     key={dog.id}
                     image={dog.image}

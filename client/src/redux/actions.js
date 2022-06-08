@@ -8,7 +8,6 @@ export const FILTER_API_VS_CREATED = "FILTER_API_VS_CREATED";
 export const FILTER_BY_TEMPERAMENT = "FILTER_BY_TEMPERAMENT";
 export const ORDER_BY_NAME = "ORDER_BY_NAME";
 export const ORDER_BY_WEIGHT = "ORDER_BY_WEIGHT";
-export const ORDER_DOGS = "ORDER_DOGS";
 export const FAILED_GET_DOG = "FAILED_GET_DOG";
 export const CLEAR_DETAILS = "CLEAR_DETAILS";
 
@@ -26,7 +25,7 @@ export function getDogByName(breed) {
       .then((res) => dispatch({ type: GET_DOG_BY_NAME, payload: res.data }))
       .catch((error) => {
         dispatch({
-          type: "FAILED_GET_DOG",
+          type: FAILED_GET_DOG,
           message: error.message || "Something went wrong.",
         });
       });
@@ -47,7 +46,7 @@ export function dogDetail(id) {
       .then((res) => dispatch({ type: DOG_DETAIL, payload: res.data }))
       .catch((error) => {
         dispatch({
-          type: "FAILED_GET_DOG",
+          type: FAILED_GET_DOG,
           message: error.message || "Something went wrong.",
         });
       });
@@ -91,13 +90,6 @@ export function orderByName(payload) {
 export function orderByWeight(payload) {
   return {
     type: ORDER_BY_WEIGHT,
-    payload,
-  };
-}
-
-export function orderDogs(payload) {
-  return {
-    type: ORDER_DOGS,
     payload,
   };
 }
