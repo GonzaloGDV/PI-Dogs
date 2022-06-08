@@ -1,0 +1,38 @@
+.Container {
+  position: absolute;
+  left: 6%;
+  top: 12%;
+  width: 100%;
+  text-align: center;
+}
+
+.title {
+  color: black;
+  font-size: 45px;
+}
+
+.photo {
+  width: 910px;
+  height: 580px;
+  /* position: relative;
+  left: 19%; */
+  border-radius: 10px;
+}
+
+.button {
+  position: absolute;
+  height: 70px;
+  width: 140px;
+  left: 45%;
+  top: 75%;
+  background-color: red;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 600;
+  border-radius: 10px;
+}
+
+.button:hover {
+  background: black;
+  color: red;
+}

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { dogDetail } from "../redux/actions.js";
+import { dogDetail, clearDetails } from "../redux/actions.js";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import style from "./styles/Details.module.css";
@@ -11,6 +11,7 @@ export default function Details() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(clearDetails());
     dispatch(dogDetail(id));
   }, [dispatch, id]);
 

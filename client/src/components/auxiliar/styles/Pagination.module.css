@@ -1,0 +1,13 @@
+.Container {
+  display: flex;
+  flex-direction: row;
+}
+.activeButton {
+  color: white;
+  background-color: black;
+}
+
+.button {
+  color: black;
+  background-color: gray;
+}

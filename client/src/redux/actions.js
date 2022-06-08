@@ -10,6 +10,8 @@ export const ORDER_BY_NAME = "ORDER_BY_NAME";
 export const ORDER_BY_WEIGHT = "ORDER_BY_WEIGHT";
 export const ORDER_DOGS = "ORDER_DOGS";
 export const FAILED_GET_DOG = "FAILED_GET_DOG";
+export const CLEAR_DETAILS = "CLEAR_DETAILS";
+//export const CURRENT_PAGE = "CURRENT_PAGE";
 
 export function getAllDogs() {
   return (dispatch) => {
@@ -45,6 +47,13 @@ export function dogDetail(id) {
     return axios(`http://localhost:3001/dogs/${id}`)
       .then((res) => dispatch({ type: DOG_DETAIL, payload: res.data }))
       .catch((error) => console.log(error));
+  };
+}
+
+export function clearDetails() {
+  return {
+    type: CLEAR_DETAILS,
+    payload: {},
   };
 }
 
@@ -88,3 +97,10 @@ export function orderDogs(payload) {
     payload,
   };
 }
+
+// export function currentPage(payload) {
+//   return {
+//     type: CURRENT_PAGE,
+//     payload,
+//   };
+// }

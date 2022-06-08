@@ -20,7 +20,8 @@ const Create = () => {
     name: "",
     height_min: "",
     height_max: "",
-    weight: "",
+    weight_min: "",
+    weight_max: "",
     life_span: "",
     image: "",
     temperaments: [],
@@ -42,23 +43,31 @@ const Create = () => {
     } else if (!/^[a-zA-Z]+(([a-zA-Z ])?[a-zA-Z]*)*$/.test(input.name)) {
       errors.name = "Name is invalid. Only letters";
     }
-    // if (!input.height_min) {
-    //   errors.height_min = "Minimum height is required";
-    // } else if (!/^[0-9]*$/.test(input.height_min)) {
-    //   errors.height_min = "Minimum height is invalid. Only integers";
-    // } else if (input.height_min > input.height_max) {
-    //   errors.height_min =
-    //     "Minimum height is invalid. It can not be lower than maximum height";
-    // }
-    if (!input.height) {
-      errors.height = "Maximum height is required";
-    } else if (!/^[0-9]*$/.test(input.height)) {
-      errors.height = "Maximum eight is invalid. Only integers";
+    if (!input.height_min) {
+      errors.height_min = "Minimum height is required";
+    } else if (!/^[0-9]*$/.test(input.height_min)) {
+      errors.height_min = "Minimum height is invalid. Only integers";
+    } else if (parseInt(input.height_min) > parseInt(input.height_max)) {
+      errors.height_min =
+        "Minimum height is invalid. It can not be higher than maximum height";
     }
-    if (!input.weight) {
-      errors.weight = "Weight is required";
-    } else if (!/^[0-9]*$/.test(input.weight)) {
-      errors.weight = "Weight is invalid. Only Integers";
+    if (!input.height_max) {
+      errors.height_max = "Maximum height is required";
+    } else if (!/^[0-9]*$/.test(input.height_max)) {
+      errors.height_max = "Maximum height is invalid. Only integers";
+    }
+    if (!input.weight_min) {
+      errors.weight_min = "Minimum weight is required";
+    } else if (!/^[0-9]*$/.test(input.weight_min)) {
+      errors.weight_min = "Minimum weight is invalid. Only integers";
+    }
+    if (!input.weight_max) {
+      errors.weight_max = "Maximum weight is required";
+    } else if (!/^[0-9]*$/.test(input.weight_max)) {
+      errors.weight_max = "Maximum weight is invalid. Only integers";
+    } else if (parseInt(input.weight_max) < parseInt(input.weight_min)) {
+      errors.weight_max =
+        "Maximum weight is invalid. It can not be lower than minimum weight";
     }
     if (!input.life_span) {
       errors.life_span = "Life Span is required";
@@ -66,9 +75,11 @@ const Create = () => {
       errors.life_span = "Life Span is invalid. Only Integers";
     }
     if (!input.image) {
-      errors.image = "Image url is required";
+      errors.image = "Url of image is required";
     } else if (!/\.(jpg|png|gif)$/i.test(input.image)) {
-      errors.image = "Image url is invalid";
+      errors.image = "Image format is invalid";
+    } else if (!/^(ftp|http|https):\/\/[^ "]+$/.test(input.image)) {
+      errors.image = "Url format is invalid";
     }
     return errors;
   }
@@ -107,7 +118,13 @@ const Create = () => {
   //********Create Button********
   const handlerCreateDog = (e) => {
     e.preventDefault();
-    dispatch(createDog({ ...input, name: input.name.toLowerCase() }));
+    dispatch(
+      createDog({
+        ...input,
+        height: input.height_min.concat(" - ", input.height_max),
+        weight: input.weight_min.concat(" - ", input.weight_max),
+      })
+    );
     alert("Your dog has been created");
     setInput({
       name: "",
@@ -129,9 +146,10 @@ const Create = () => {
       input.name === "" ||
       input.temperaments.length < 1 ||
       errors.hasOwnProperty("name") ||
-      errors.hasOwnProperty("height") ||
-      // errors.hasOwnProperty("height_max") ||
-      errors.hasOwnProperty("weight") ||
+      errors.hasOwnProperty("height_min") ||
+      errors.hasOwnProperty("height_max") ||
+      errors.hasOwnProperty("weight_min") ||
+      errors.hasOwnProperty("weight-max") ||
       errors.hasOwnProperty("life_span") ||
       errors.hasOwnProperty("image") ||
       errors.hasOwnProperty("temperaments")
@@ -163,7 +181,7 @@ const Create = () => {
           {errors.name && <p className={style.danger}>{errors.name}</p>}
         </div>
 
-        {/* <div>
+        <div>
           <label>Height minimum:</label>
           <input
             className={errors.height_min && style.danger}
@@ -177,34 +195,54 @@ const Create = () => {
           {errors.height_min && (
             <p className={style.danger}>{errors.height_min}</p>
           )}
-        </div> */}
+        </div>
 
         <div>
           <label>Height maximum:</label>
           <input
-            className={errors.height && style.danger}
+            className={errors.height_max && style.danger}
             type="text"
-            name="height"
+            name="height_max"
             onChange={handlerInputChange}
-            value={input.height}
-            placeholder={"Type height max(cm)"}
+            value={input.height_max}
+            placeholder={"Type height max (cm)"}
             autoComplete="off"
           />
-          {errors.height && <p className={style.danger}>{errors.height}</p>}
+          {errors.height_max && (
+            <p className={style.danger}>{errors.height_max}</p>
+          )}
         </div>
 
         <div>
-          <label>Weight:</label>
+          <label>Weight minimum:</label>
           <input
-            className={errors.weight && style.danger}
+            className={errors.weight_min && style.danger}
             type="text"
-            name="weight"
+            name="weight_min"
             onChange={handlerInputChange}
-            value={input.weight}
-            placeholder={"Type weight (kg)"}
+            value={input.weight_min}
+            placeholder={"Type weight min (kg)"}
             autoComplete="off"
           />
-          {errors.weight && <p className={style.danger}>{errors.weight}</p>}
+          {errors.weight_min && (
+            <p className={style.danger}>{errors.weight_min}</p>
+          )}
+        </div>
+
+        <div>
+          <label>Weight maximum:</label>
+          <input
+            className={errors.weight_max && style.danger}
+            type="text"
+            name="weight_max"
+            onChange={handlerInputChange}
+            value={input.weight_max}
+            placeholder={"Type weight max (kg)"}
+            autoComplete="off"
+          />
+          {errors.weight_max && (
+            <p className={style.danger}>{errors.weight_max}</p>
+          )}
         </div>
 
         <div>

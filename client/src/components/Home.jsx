@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Pagination from "./auxiliar/Pagination.jsx";
-import NoResults from "./NoResults.jsx";
+import NoResults from "./auxiliar/NoResults.jsx";
 import SearchBar from "./auxiliar/SearchBar.jsx";
 import Card from "./auxiliar/Card.jsx";
 import style from "./styles/Home.module.css";
@@ -14,6 +14,7 @@ import {
   filterByTemperament,
   orderByName,
   orderByWeight,
+  //currentPage,
 } from "../redux/actions";
 
 const Home = () => {
@@ -45,6 +46,7 @@ const Home = () => {
   //**********Handlers**********
   function handleFilterApiVsCreated(e) {
     dispatch(filterDogsApiVsCreated(e.target.value));
+    setCurrentPage(1);
   }
 
   function handleSort(e) {
@@ -119,6 +121,13 @@ const Home = () => {
         </div>
 
         <SearchBar />
+
+        <Pagination
+          dogsPerPage={dogsPerPage}
+          totalDogs={dogs.length}
+          paginate={paginate}
+          currentPage={currentPage}
+        />
       </div>
 
       <div className={style.dogListContainer}>
@@ -145,14 +154,6 @@ const Home = () => {
             })
           )}
         </ul>
-      </div>
-
-      <div className={style.paginationList}>
-        <Pagination
-          dogsPerPage={dogsPerPage}
-          totalDogs={dogs.length}
-          paginate={paginate}
-        />
       </div>
     </div>
   );

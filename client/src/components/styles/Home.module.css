@@ -4,6 +4,7 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  height: 100vh;
 }
 
 .menuContainer {
@@ -65,10 +66,8 @@
 }
 
 .paginationList {
-  /* display: flex; */
-  flex-direction: row;
-  text-align: center;
-  place-items: center;
+  place-items: baseline;
+  position: absolute;
 }
 
 /* @media (max-width: 400px) {

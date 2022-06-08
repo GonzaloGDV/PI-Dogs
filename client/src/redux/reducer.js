@@ -4,11 +4,13 @@ import {
   FAILED_GET_DOG,
   GET_TEMPERAMENTS,
   DOG_DETAIL,
+  CLEAR_DETAILS,
   CREATE_DOG,
   FILTER_API_VS_CREATED,
   ORDER_BY_NAME,
   ORDER_BY_WEIGHT,
   FILTER_BY_TEMPERAMENT,
+  //CURRENT_PAGE,
 } from "./actions";
 
 const initialState = {
@@ -17,6 +19,7 @@ const initialState = {
   allDogs: [],
   dogDetail: [],
   noResults: "",
+  //currentPage: 1,
 };
 
 function reducer(state = initialState, { type, payload }) {
@@ -52,6 +55,12 @@ function reducer(state = initialState, { type, payload }) {
         dogDetail: payload,
       };
 
+    case CLEAR_DETAILS:
+      return {
+        ...state,
+        dogDetail: payload,
+      };
+
     case CREATE_DOG:
       return {
         ...state,
@@ -70,31 +79,15 @@ function reducer(state = initialState, { type, payload }) {
 
     case FILTER_BY_TEMPERAMENT:
       const allDogs2 = state.allDogs;
-      const filterTemperament = allDogs2.filter(
-        (dog) => dog.temperament && dog.temperament.includes(payload)
+      const filterTemperament = allDogs2.filter((dog) =>
+        !dog.created
+          ? dog.temperament.includes(payload)
+          : dog.temperaments.map((temp) => temp.name).includes(payload)
       );
       return {
         ...state,
         dogs: payload === "All" ? state.allDogs : filterTemperament,
       };
-
-    // case ORDER_BY_NAME:
-    //   const orderedArray =
-    //     payload === "ascend"
-    //       ? state.dogs.sort(function (a, b) {
-    //           if (a.name > b.name) return 1;
-    //           if (b.name > a.name) return -1;
-    //           return 0;
-    //         })
-    //       : state.dogs.sort(function (a, b) {
-    //           if (a.name > b.name) return -1;
-    //           if (b.name > a.name) return 1;
-    //           return 0;
-    //         });
-    //   return {
-    //     ...state,
-    //     dogs: orderedArray,
-    //   };
 
     case ORDER_BY_NAME:
       const orderedArray =
@@ -121,11 +114,15 @@ function reducer(state = initialState, { type, payload }) {
                 parseInt(a.weight.split("-")[1])
               );
             });
-
       return {
         ...state,
         dogs: weightArray,
       };
+    // case CURRENT_PAGE:
+    //   return {
+    //     ...state,
+    //     currentPage: payload,
+    //   };
 
     default:
       return state;
