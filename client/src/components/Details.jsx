@@ -45,6 +45,7 @@ export default function Details() {
             <h3>{`${dogSelected.weight} kg`}</h3>
             <h3>{`${dogSelected.height} cm`}</h3>
             <h3>{dogSelected.life_span}</h3>
+            {/* <h3>{dogSelected.createdGonzalo}</h3> */}
           </div>
         )}
       </div>
