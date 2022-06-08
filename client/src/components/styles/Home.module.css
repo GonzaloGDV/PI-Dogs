@@ -46,6 +46,13 @@
   /* grid-template-rows: 100px 300px; */
   place-items: center;
   gap: 20px;
+}
+
+.link {
+  text-decoration: none;
+}
+
+.link:visited {
   text-decoration: none;
 }
 

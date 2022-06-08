@@ -10,7 +10,6 @@ import {
   ORDER_BY_NAME,
   ORDER_BY_WEIGHT,
   FILTER_BY_TEMPERAMENT,
-  //CURRENT_PAGE,
 } from "./actions";
 
 const initialState = {
@@ -19,7 +18,6 @@ const initialState = {
   allDogs: [],
   dogDetail: [],
   noResults: "",
-  //currentPage: 1,
 };
 
 function reducer(state = initialState, { type, payload }) {
@@ -118,11 +116,6 @@ function reducer(state = initialState, { type, payload }) {
         ...state,
         dogs: weightArray,
       };
-    // case CURRENT_PAGE:
-    //   return {
-    //     ...state,
-    //     currentPage: payload,
-    //   };
 
     default:
       return state;

@@ -1,7 +1,7 @@
 .Container {
-  position: absolute;
-  left: 6%;
-  top: 12%;
+  position: relative;
+  right: 35%;
+  bottom: 50%;
   width: 100%;
   text-align: center;
 }
@@ -19,10 +19,10 @@
 
 .button {
   position: absolute;
-  height: 70px;
-  width: 140px;
+  height: 100px;
+  width: 150px;
   left: 45%;
-  top: 75%;
+  top: 80%;
   background-color: red;
   cursor: pointer;
   font-size: 20px;

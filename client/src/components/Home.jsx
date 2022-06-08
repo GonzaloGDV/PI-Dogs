@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Pagination from "./auxiliar/Pagination.jsx";
 import NoResults from "./auxiliar/NoResults.jsx";
-import SearchBar from "./auxiliar/SearchBar.jsx";
 import Card from "./auxiliar/Card.jsx";
 import style from "./styles/Home.module.css";
 import {
@@ -14,7 +13,7 @@ import {
   filterByTemperament,
   orderByName,
   orderByWeight,
-  //currentPage,
+  getDogByName,
 } from "../redux/actions";
 
 const Home = () => {
@@ -22,6 +21,8 @@ const Home = () => {
   const dogs = useSelector((state) => state.dogs);
   const allTemperaments = useSelector((state) => state.temperaments);
   const searchResult = useSelector((state) => state.noResults);
+
+  const [name, setName] = useState("");
 
   useEffect(() => {
     dispatch(getAllDogs());
@@ -32,7 +33,6 @@ const Home = () => {
   }, [dispatch]);
 
   const [order, setOrder] = useState("");
-  const [order2, setOrder2] = useState("");
 
   //**********Paginate**********
   const [currentPage, setCurrentPage] = useState(1);
@@ -46,6 +46,12 @@ const Home = () => {
   //**********Handlers**********
   function handleFilterApiVsCreated(e) {
     dispatch(filterDogsApiVsCreated(e.target.value));
+    setCurrentPage(1);
+  }
+
+  function handleFilterByTemperament(e) {
+    e.preventDefault();
+    dispatch(filterByTemperament(e.target.value));
     setCurrentPage(1);
   }
 
@@ -63,13 +69,25 @@ const Home = () => {
     setOrder({ order });
   }
 
-  function handleFilterByTemperament(e) {
-    e.preventDefault();
-    dispatch(filterByTemperament(e.target.value));
-    setCurrentPage(1);
-    setOrder2({ order2 });
+  function refreshPage() {
+    window.location.reload(false);
   }
 
+  function handleInputChange(e) {
+    e.preventDefault();
+    setName(e.target.value);
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!name) {
+      alert("You should type a breed to start your search");
+    } else {
+      dispatch(getDogByName(name));
+      setCurrentPage(1);
+      setName("");
+    }
+  }
   return (
     <div className={style.homeContainer}>
       <div className={style.menuContainer}>
@@ -120,7 +138,16 @@ const Home = () => {
           </select>
         </div>
 
-        <SearchBar />
+        <div className={style.searchBar}>
+          <input
+            type="text"
+            placeholder="Type a breed"
+            onChange={(e) => handleInputChange(e)}
+          />
+          <button type="submit" onClick={(e) => handleSubmit(e)}>
+            Submit a search
+          </button>
+        </div>
 
         <Pagination
           dogsPerPage={dogsPerPage}
@@ -128,6 +155,9 @@ const Home = () => {
           paginate={paginate}
           currentPage={currentPage}
         />
+        <button className={style.allDogsButton} onClick={refreshPage}>
+          Show all dogs
+        </button>
       </div>
 
       <div className={style.dogListContainer}>
@@ -137,7 +167,7 @@ const Home = () => {
           ) : (
             currentDogs.map((dog) => {
               return (
-                <Link to={`/details/${dog.id}`}>
+                <Link className={style.link} to={`/details/${dog.id}`}>
                   <Card
                     key={dog.id}
                     image={dog.image}

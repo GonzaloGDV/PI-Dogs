@@ -5,6 +5,7 @@ import { dogDetail, clearDetails } from "../redux/actions.js";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import style from "./styles/Details.module.css";
+import NoResultsId from "./auxiliar/NoResultsId.jsx";
 
 export default function Details() {
   const { id } = useParams();
@@ -16,6 +17,7 @@ export default function Details() {
   }, [dispatch, id]);
 
   const dogSelected = useSelector((state) => state.dogDetail);
+  const searchResult = useSelector((state) => state.noResults);
 
   return (
     <div className={style.Container}>
@@ -23,22 +25,28 @@ export default function Details() {
         Home
       </Link>
       <div className={style.render}>
-        <img
-          src={dogSelected.image}
-          alt={dogSelected.name}
-          width="500px"
-          height="400px"
-          className={style.photo}
-        />
-        <h1>{dogSelected.name}</h1>
-        <h3>
-          {!dogSelected.created
-            ? dogSelected.temperament
-            : dogSelected.temperaments.map((temp) => temp.name + " ")}
-        </h3>
-        <h3>{`${dogSelected.weight} kg`}</h3>
-        <h3>{`${dogSelected.height} cm`}</h3>
-        <h3>{dogSelected.life_span}</h3>
+        {searchResult === false ? (
+          <NoResultsId />
+        ) : (
+          <div>
+            <img
+              src={dogSelected.image}
+              alt={dogSelected.name}
+              width="500px"
+              height="400px"
+              className={style.photo}
+            />
+            <h1>{dogSelected.name}</h1>
+            <h3>
+              {!dogSelected.created
+                ? dogSelected.temperament
+                : dogSelected.temperaments.map((temp) => temp.name + " ")}
+            </h3>
+            <h3>{`${dogSelected.weight} kg`}</h3>
+            <h3>{`${dogSelected.height} cm`}</h3>
+            <h3>{dogSelected.life_span}</h3>
+          </div>
+        )}
       </div>
     </div>
   );
