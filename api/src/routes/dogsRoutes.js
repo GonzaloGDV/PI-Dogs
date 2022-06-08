@@ -1,9 +1,5 @@
 const { Router } = require("express");
-const {
-  getAllDogs,
-  //getNamedDogs,
-  //getIdDog,
-} = require("../controllers/DogControllers");
+const { getAllDogs } = require("../controllers/DogControllers");
 
 const router = Router();
 
@@ -11,7 +7,6 @@ router.get("/", async (req, res) => {
   const { name } = req.query;
   try {
     const allDoguis = await getAllDogs();
-    //allDoguis = allDoguis.filter((e) => e.weight !== "NaN");
 
     if (name) {
       const filteredDogs = allDoguis.filter((e) =>

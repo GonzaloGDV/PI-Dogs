@@ -62,52 +62,8 @@ const getAllDogs = async () => {
   }
 };
 
-// const getNamedDogs = async (name) => {
-//   try {
-//     let dogs = (
-//       await axios(
-//         `https://api.thedogapi.com/v1/breeds/search?q=${name}&api_key=${API_KEY}`
-//       )
-//     ).data.map((e) => {
-//       return {
-//         id: e.id,
-//         name: e.name,
-//         height: e.height.metric,
-//         weight: e.weight.metric,
-//         life_span: e.life_span,
-//         temperament: e.temperament,
-//       };
-//     });
-//     return dogs;
-//   } catch (error) {
-//     console.log(error.message);
-//   }
-// };
-
-// const getIdDog = async () => {
-//   try {
-//     let dogs = (
-//       await axios(`https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`)
-//     ).data.map((e) => {
-//       return {
-//         id: e.id,
-//         name: e.name,
-//         height: e.height.metric,
-//         weight: e.weight.metric,
-//         life_span: e.life_span,
-//         temperament: e.temperament,
-//       };
-//     });
-//     return dogs;
-//   } catch (error) {
-//     console.log(error.message);
-//   }
-// };
-
 module.exports = {
   getAllDogs,
   getApiDogs,
-  //getNamedDogs,
   getDBDogs,
-  //getIdDog,
 };
