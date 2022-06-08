@@ -39,6 +39,11 @@ module.exports = (sequelize) => {
       image: {
         type: DataTypes.TEXT,
       },
+      // createdGonzalo: {
+      //   type: DataTypes.STRING,
+      //   allowNull: false,
+      //   defaultValue: "CreatedInDB",
+      // },
     },
     { timestamps: false }
   );
