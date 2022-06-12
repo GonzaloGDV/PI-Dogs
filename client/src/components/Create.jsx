@@ -167,7 +167,7 @@ const Create = () => {
         Home
       </Link>
       <form className={style.formContainer}>
-        <div>
+        <div className={style.name}>
           <label>Name:</label>
           <input
             className={errors.name && style.danger}
@@ -181,7 +181,7 @@ const Create = () => {
           {errors.name && <p className={style.danger}>{errors.name}</p>}
         </div>
 
-        <div>
+        <div className={style.height_min}>
           <label>Height minimum:</label>
           <input
             className={errors.height_min && style.danger}
@@ -197,7 +197,7 @@ const Create = () => {
           )}
         </div>
 
-        <div>
+        <div className={style.height_max}>
           <label>Height maximum:</label>
           <input
             className={errors.height_max && style.danger}
@@ -213,7 +213,7 @@ const Create = () => {
           )}
         </div>
 
-        <div>
+        <div className={style.weight_min}>
           <label>Weight minimum:</label>
           <input
             className={errors.weight_min && style.danger}
@@ -229,7 +229,7 @@ const Create = () => {
           )}
         </div>
 
-        <div>
+        <div className={style.weight_max}>
           <label>Weight maximum:</label>
           <input
             className={errors.weight_max && style.danger}
@@ -245,7 +245,7 @@ const Create = () => {
           )}
         </div>
 
-        <div>
+        <div className={style.life_span}>
           <label>Life Span:</label>
           <input
             className={errors.life_span && style.danger}
@@ -261,7 +261,7 @@ const Create = () => {
           )}
         </div>
 
-        <div>
+        <div className={style.url}>
           <label>Image URL:</label>
           <input
             className={errors.image && style.danger}

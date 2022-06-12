@@ -32,15 +32,13 @@ export default function Details() {
             <img
               src={dogSelected.image}
               alt={dogSelected.name}
-              width="500px"
-              height="400px"
               className={style.photo}
             />
             <h1>{dogSelected.name}</h1>
             <h3>
               {!dogSelected.created
                 ? dogSelected.temperament
-                : dogSelected.temperaments.map((temp) => temp.name + " ")}
+                : dogSelected.temperaments.map((temp) => temp.name + ", ")}
             </h3>
             <h3>{`${dogSelected.weight} kg`}</h3>
             <h3>{`${dogSelected.height} cm`}</h3>

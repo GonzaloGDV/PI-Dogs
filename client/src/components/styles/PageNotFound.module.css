@@ -8,18 +8,18 @@
 
 .title {
   position: relative;
-  left: 44%;
+  left: 43%;
   top: 15%;
   color: black;
   font-size: 45px;
 }
 
 .linkHome {
-  position: absolute;
+  position: relative;
   left: 5%;
-  top: 6%;
+  top: 40px;
   color: rgb(30, 218, 251);
-  font-size: 25px;
+  font-size: 30px;
   font-weight: 600;
   text-shadow: 0 0 1px black, 0 0 1px black, 0 0 1px black, 0 0 1px black;
   cursor: pointer;
@@ -33,9 +33,9 @@
 }
 
 .photo {
-  width: 910px;
-  height: 580px;
+  width: 820px;
+  height: 520px;
   position: relative;
-  left: 19%;
+  left: 21%;
   border-radius: 10px;
 }

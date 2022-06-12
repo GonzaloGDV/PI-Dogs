@@ -1,28 +1,33 @@
 .Container {
-  position: absolute;
-  left: 6%;
-  top: 12%;
+  /* bottom: 10%; */
   width: 100%;
   text-align: center;
+  height: 100vh;
 }
 
 .title {
+  position: fixed;
   color: black;
-  font-size: 45px;
+  font-size: 30px;
+  width: 100vw;
+  left: 0%;
 }
 
 .photo {
-  width: 910px;
-  height: 580px;
+  position: fixed;
+  width: 665px;
+  height: 420px;
   border-radius: 10px;
+  margin-top: 60px;
+  left: 27%;
 }
 
 .button {
-  position: absolute;
+  position: fixed;
   height: 70px;
   width: 140px;
   left: 45%;
-  top: 75%;
+  top: 85%;
   background-color: red;
   cursor: pointer;
   font-size: 20px;

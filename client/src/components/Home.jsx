@@ -181,7 +181,7 @@ const Home = () => {
                     temperaments={
                       !dog.created
                         ? dog.temperament
-                        : dog.temperaments.map((temp) => temp.name + " ")
+                        : dog.temperaments.map((temp) => temp.name + ", ")
                     }
                     weight={`${dog.weight} kg`}
                   />

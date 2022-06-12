@@ -1,0 +1,29 @@
+.card {
+  margin: 10px;
+  width: 15rem;
+  border-width: 2px;
+  border-style: solid;
+  width: 270px;
+  height: 375px;
+  border-radius: 10px;
+}
+
+.name {
+  text-align: center;
+}
+
+.photo {
+  /* position: relative; */
+  margin-left: 10px;
+  border-radius: 10px;
+  width: 250px;
+  height: 200px;
+}
+
+.temperaments {
+  text-align: center;
+}
+
+.weight {
+  text-align: center;
+}

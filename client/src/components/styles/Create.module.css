@@ -8,7 +8,7 @@
 
 .title {
   position: absolute;
-  left: 40%;
+  left: 38%;
   top: 5%;
   color: black;
   font-size: 45px;
@@ -19,7 +19,7 @@
   left: 5%;
   top: 6%;
   color: rgb(30, 218, 251);
-  font-size: 25px;
+  font-size: 30px;
   font-weight: 600;
   text-shadow: 0 0 1px black, 0 0 1px black, 0 0 1px black, 0 0 1px black;
   cursor: pointer;
@@ -41,6 +41,38 @@
   align-items: center;
   justify-content: center;
   padding-top: 200px;
+}
+
+.name {
+  margin: 5px;
+}
+
+.height_min {
+  margin: 5px;
+}
+
+.height_max {
+  margin: 5px;
+}
+
+.weight_min {
+  margin: 5px;
+}
+
+.weight_max {
+  margin: 5px;
+}
+
+.life_span {
+  margin: 5px;
+}
+
+.url {
+  margin: 5px;
+}
+
+.selectTemperament {
+  margin: 5px;
 }
 
 .submitButton {
