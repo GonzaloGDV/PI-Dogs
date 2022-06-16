@@ -50,16 +50,25 @@ const Create = () => {
     } else if (parseInt(input.height_min) > parseInt(input.height_max)) {
       errors.height_min =
         "Minimum height is invalid. It can not be higher than maximum height";
+    } else if (parseInt(input.height_min) === 0) {
+      errors.height_min =
+        "Minimum height is invalid. It can not be equal to 0 cm";
     }
     if (!input.height_max) {
       errors.height_max = "Maximum height is required";
     } else if (!/^[0-9]*$/.test(input.height_max)) {
       errors.height_max = "Maximum height is invalid. Only integers";
+    } else if (parseInt(input.height_max) > 200) {
+      errors.height_max =
+        "Maximum height is invalid. It can not be higher than 200 cm";
     }
     if (!input.weight_min) {
       errors.weight_min = "Minimum weight is required";
     } else if (!/^[0-9]*$/.test(input.weight_min)) {
       errors.weight_min = "Minimum weight is invalid. Only integers";
+    } else if (parseInt(input.weight_min) === 0) {
+      errors.weight_min =
+        "Minimum weight is invalid. It can not be equal to 0 kg";
     }
     if (!input.weight_max) {
       errors.weight_max = "Maximum weight is required";
@@ -68,11 +77,17 @@ const Create = () => {
     } else if (parseInt(input.weight_max) < parseInt(input.weight_min)) {
       errors.weight_max =
         "Maximum weight is invalid. It can not be lower than minimum weight";
+    } else if (parseInt(input.weight_max) > 200) {
+      errors.weight_max =
+        "Maximum weight is invalid. It can not be higher than 200 kg";
     }
     if (!input.life_span) {
       errors.life_span = "Life Span is required";
     } else if (!/^[0-9]*$/.test(input.life_span)) {
       errors.life_span = "Life Span is invalid. Only Integers";
+    } else if (parseInt(input.life_span) > 50) {
+      errors.life_span =
+        "Life Span is invalid. It can not be higher than 50 years";
     }
     if (!input.image) {
       errors.image = "Url of image is required";

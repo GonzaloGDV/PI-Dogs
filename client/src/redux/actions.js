@@ -4,6 +4,7 @@ export const GET_TEMPERAMENTS = "GET_TEMPERAMENTS";
 export const GET_DOG_BY_NAME = "GET_DOG_BY_NAME";
 export const DOG_DETAIL = "DOG_DETAIL";
 export const CREATE_DOG = "CREATE_DOG";
+export const DELETE_DOG = " DELETE_DOG";
 export const FILTER_API_VS_CREATED = "FILTER_API_VS_CREATED";
 export const FILTER_BY_TEMPERAMENT = "FILTER_BY_TEMPERAMENT";
 export const ORDER_BY_NAME = "ORDER_BY_NAME";
@@ -63,6 +64,13 @@ export function clearDetails() {
 export function createDog(payload) {
   return (dispatch) => {
     return axios.post("http://localhost:3001/dog/", payload);
+  };
+}
+
+export function deleteDog(payload) {
+  return {
+    type: DELETE_DOG,
+    payload,
   };
 }
 

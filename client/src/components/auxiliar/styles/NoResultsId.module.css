@@ -5,29 +5,32 @@
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;
+  width: 100vw;
 }
 
 .title {
   position: relative;
   color: black;
-  font-size: 40px;
-  right: 15%;
+  font-size: 30px;
+  right: 6%;
+  top: 15%;
 }
 
 .photo {
   position: relative;
-  width: 820px;
-  height: 520px;
+  width: 740px;
+  height: 470px;
   border-radius: 10px;
-  right: 16%;
+  top: 14%;
+  right: 11%;
 }
 
 .button {
   position: relative;
   height: 100px;
   width: 150px;
-  right: 65%;
-  bottom: 13%;
+  right: 42%;
+  bottom: 0%;
   background-color: red;
   cursor: pointer;
   font-size: 20px;

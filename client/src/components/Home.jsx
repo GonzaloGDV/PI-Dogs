@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Pagination from "./auxiliar/Pagination.jsx";
 import NoResults from "./auxiliar/NoResults.jsx";
 import Card from "./auxiliar/Card.jsx";
+import Loading from "./auxiliar/Loading.jsx";
 import style from "./styles/Home.module.css";
 import {
   getAllDogs,
@@ -21,6 +22,7 @@ const Home = () => {
   const dogs = useSelector((state) => state.dogs);
   const allTemperaments = useSelector((state) => state.temperaments);
   const searchResult = useSelector((state) => state.noResults);
+  const loading = useSelector((state) => state.loading);
 
   const [name, setName] = useState("");
 
@@ -90,108 +92,117 @@ const Home = () => {
     }
   }
   return (
-    <div className={style.homeContainer}>
-      <div className={style.menuContainer}>
-        <Link to="/create" className={style.linkCreate}>
-          Create Dog
-        </Link>
+    <>
+      {loading ? (
+        <Loading />
+      ) : (
+        <div className={style.homeContainer}>
+          <div className={style.menuContainer}>
+            <Link to="/create" className={style.linkCreate}>
+              Create Dog
+            </Link>
 
-        <div className={style.filterApiVsCreated}>
-          <label>Filter API or Created breed </label>
-          <select onChange={handleFilterApiVsCreated}>
-            <option value="All">All dogs</option>
-            <option value="api">API dogs</option>
-            <option value="created">Created dogs</option>
-          </select>
+            <div className={style.filterApiVsCreated}>
+              <label>Filter API or Created breed </label>
+              <select onChange={handleFilterApiVsCreated}>
+                <option value="All">All dogs</option>
+                <option value="api">API dogs</option>
+                <option value="created">Created dogs</option>
+              </select>
+            </div>
+
+            <div className={style.filterTemperament}>
+              <label>Filter by temperament </label>
+              <select
+                defaultValue={"DEFAULT"}
+                onChange={handleFilterByTemperament}
+              >
+                <option value="DEFAULT" disabled>
+                  Choose a temperament
+                </option>
+                <option value="All">All dogs</option>
+                {allTemperaments &&
+                  allTemperaments.map((temperament) => {
+                    return (
+                      <option key={temperament.id} value={temperament.name}>
+                        {temperament.name}
+                      </option>
+                    );
+                  })}
+              </select>
+            </div>
+
+            <div className={style.orderBreed}>
+              <label>Order by breed </label>
+              <select onChange={handleSort}>
+                <option value="ascend">A-Z breed name</option>
+                <option value="descend">Z-A breed name</option>
+              </select>
+            </div>
+
+            <div className={style.orderWeight}>
+              <label>Order by weight </label>
+              <select onChange={handleSort2}>
+                <option value="lighter">Ascendent weight</option>
+                <option value="heavier">Descendent weight</option>
+              </select>
+            </div>
+
+            <div className={style.searchBar}>
+              <input
+                type="text"
+                placeholder="Type a breed"
+                onChange={(e) => handleInputChange(e)}
+              />
+              <button type="submit" onClick={(e) => handleSubmit(e)}>
+                Submit a search
+              </button>
+            </div>
+
+            <Pagination
+              dogsPerPage={dogsPerPage}
+              totalDogs={dogs.length}
+              paginate={paginate}
+              currentPage={currentPage}
+            />
+
+            <button className={style.allDogsButton} onClick={refreshPage}>
+              Reset all dogs
+            </button>
+          </div>
+
+          <div className={style.dogListContainer}>
+            <ul className={style.dogList}>
+              {searchResult === false ? (
+                <NoResults />
+              ) : (
+                currentDogs.map((dog) => {
+                  return (
+                    <Link
+                      className={style.link}
+                      key={dog.id}
+                      to={`/details/${dog.id}`}
+                    >
+                      <Card
+                        key={dog.id}
+                        image={dog.image}
+                        name={dog.name}
+                        temperaments={
+                          !dog.created
+                            ? dog.temperament
+                            : dog.temperaments.map((temp) => temp.name + ", ")
+                        }
+                        weight={`${dog.weight} kg`}
+                      />
+                    </Link>
+                  );
+                })
+              )}
+            </ul>
+          </div>
         </div>
-
-        <div className={style.filterTemperament}>
-          <label>Filter by temperament </label>
-          <select defaultValue={"DEFAULT"} onChange={handleFilterByTemperament}>
-            <option value="DEFAULT" disabled>
-              Choose a temperament
-            </option>
-            <option value="All">All dogs</option>
-            {allTemperaments &&
-              allTemperaments.map((temperament) => {
-                return (
-                  <option key={temperament.id} value={temperament.name}>
-                    {temperament.name}
-                  </option>
-                );
-              })}
-          </select>
-        </div>
-
-        <div className={style.orderBreed}>
-          <label>Order by breed </label>
-          <select onChange={handleSort}>
-            <option value="ascend">A-Z breed name</option>
-            <option value="descend">Z-A breed name</option>
-          </select>
-        </div>
-
-        <div className={style.orderWeight}>
-          <label>Order by weight </label>
-          <select onChange={handleSort2}>
-            <option value="lighter">Ascendent weight</option>
-            <option value="heavier">Descendent weight</option>
-          </select>
-        </div>
-
-        <div className={style.searchBar}>
-          <input
-            type="text"
-            placeholder="Type a breed"
-            onChange={(e) => handleInputChange(e)}
-          />
-          <button type="submit" onClick={(e) => handleSubmit(e)}>
-            Submit a search
-          </button>
-        </div>
-
-        <Pagination
-          dogsPerPage={dogsPerPage}
-          totalDogs={dogs.length}
-          paginate={paginate}
-          currentPage={currentPage}
-        />
-
-        <button className={style.allDogsButton} onClick={refreshPage}>
-          Show all dogs
-        </button>
-      </div>
-
-      <div className={style.dogListContainer}>
-        <ul className={style.dogList}>
-          {searchResult === false ? (
-            <NoResults />
-          ) : (
-            currentDogs.map((dog) => {
-              return (
-                <Link
-                  className={style.link}
-                  key={dog.id}
-                  to={`/details/${dog.id}`}
-                >
-                  <Card
-                    key={dog.id}
-                    image={dog.image}
-                    name={dog.name}
-                    temperaments={
-                      !dog.created
-                        ? dog.temperament
-                        : dog.temperaments.map((temp) => temp.name + ", ")
-                    }
-                    weight={`${dog.weight} kg`}
-                  />
-                </Link>
-              );
-            })
-          )}
-        </ul>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 

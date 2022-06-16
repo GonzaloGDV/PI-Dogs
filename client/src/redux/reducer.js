@@ -10,6 +10,7 @@ import {
   ORDER_BY_NAME,
   ORDER_BY_WEIGHT,
   FILTER_BY_TEMPERAMENT,
+  DELETE_DOG,
 } from "./actions";
 
 const initialState = {
@@ -18,6 +19,7 @@ const initialState = {
   allDogs: [],
   dogDetail: [],
   noResults: "",
+  loading: false,
 };
 
 function reducer(state = initialState, { type, payload }) {
@@ -62,6 +64,13 @@ function reducer(state = initialState, { type, payload }) {
     case CREATE_DOG:
       return {
         ...state,
+      };
+
+    case DELETE_DOG:
+      const filteredDogs = state.dogs.filter((dog) => dog.id !== payload);
+      return {
+        ...state,
+        dogs: filteredDogs,
       };
 
     case FILTER_API_VS_CREATED:
@@ -115,6 +124,11 @@ function reducer(state = initialState, { type, payload }) {
       return {
         ...state,
         dogs: weightArray,
+      };
+    case "LOADING":
+      return {
+        ...state,
+        loading: true,
       };
 
     default:
