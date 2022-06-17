@@ -14,7 +14,7 @@ export const CLEAR_DETAILS = "CLEAR_DETAILS";
 
 export function getAllDogs() {
   return (dispatch) => {
-    return axios("http://localhost:3001/dogs/").then((res) =>
+    return axios("/dogs/").then((res) =>
       dispatch({ type: GET_DOGS, payload: res.data })
     );
   };
@@ -22,7 +22,7 @@ export function getAllDogs() {
 
 export function getDogByName(breed) {
   return (dispatch) => {
-    return axios(`http://localhost:3001/dogs?name=${breed}`)
+    return axios(`/dogs?name=${breed}`)
       .then((res) => dispatch({ type: GET_DOG_BY_NAME, payload: res.data }))
       .catch((error) => {
         dispatch({
@@ -35,7 +35,7 @@ export function getDogByName(breed) {
 
 export function getAllTemperaments() {
   return (dispatch) => {
-    return axios("http://localhost:3001/temperament/").then((res) =>
+    return axios("/temperament/").then((res) =>
       dispatch({ type: GET_TEMPERAMENTS, payload: res.data })
     );
   };
@@ -43,7 +43,7 @@ export function getAllTemperaments() {
 
 export function dogDetail(id) {
   return (dispatch) => {
-    return axios(`http://localhost:3001/dogs/${id}`)
+    return axios(`/dogs/${id}`)
       .then((res) => dispatch({ type: DOG_DETAIL, payload: res.data }))
       .catch((error) => {
         dispatch({
@@ -63,7 +63,7 @@ export function clearDetails() {
 
 export function createDog(payload) {
   return (dispatch) => {
-    return axios.post("http://localhost:3001/dog/", payload);
+    return axios.post("/dog/", payload);
   };
 }
 
