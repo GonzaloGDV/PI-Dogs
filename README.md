@@ -10,7 +10,7 @@
 
 ## Introduction
 
-This project was done as an individual assignment, where students have to join all technologies learned at SoyHenry bootcamp. 
+This project was done as an individual assignment, where students have to apply all technologies learned at SoyHenry bootcamp. 
 
 ## About
 
