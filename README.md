@@ -1,7 +1,7 @@
 
 # Dogs App - Individual Project
 
-![PI-Dogs](https://github.com/GonzaloGDV/PI-Dogs/blob/dev/client/src/images/CapturaLandingPI-Dogs.png)
+![PI-Dogs](https://github.com/GonzaloGDV/PI-Dogs/blob/main/client/src/images/CapturaLandingPI-Dogs.png)
 
 ## Introduction
 
