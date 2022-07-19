@@ -5,11 +5,15 @@
 
 ## Introduction
 
+<p align="justify">
 This project was done as an individual assignment, where students have to apply all technologies learned at SoyHenry bootcamp. 
+</p>
 
 ## About
 
+<p align="justify">
 Dogs App consists in searching, filtering and ordering existing dog breeds. It also allows visitors to create new breeds. 
+</p>
 
 ## Project Objetives
 
