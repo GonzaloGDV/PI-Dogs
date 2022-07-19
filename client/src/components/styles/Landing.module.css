@@ -1,12 +1,11 @@
 .Container {
   display: flex;
-  /* background-size: 100%; */
   background-size: cover;
 }
 
 .photo {
-  width: 1433px;
-  height: 791px;
+  width: 100vw;
+  height: 100vh;
 }
 
 .welcome {
