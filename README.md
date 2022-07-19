@@ -15,7 +15,7 @@ This project was done as an individual assignment, where students have to apply 
 Dogs App consists in searching, filtering and ordering existing dog breeds. It also allows visitors to create new breeds. 
 </p>
 
-## Project Objetives
+## Project Objectives
 
 - Build a JavaScript App from scratch.
 - Affirm and connect skills learned during bootcamp.
