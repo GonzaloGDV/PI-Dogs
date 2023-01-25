@@ -199,14 +199,14 @@ const Create = () => {
         </div>
 
         <div className={style.height_min}>
-          <label>Height minimum:</label>
+          <label>Minimum height:</label>
           <input
             className={errors.height_min && style.danger}
             type='text'
             name='height_min'
             onChange={handlerInputChange}
             value={input.height_min}
-            placeholder={'Type height min (cm)'}
+            placeholder={'Type min height (cm)'}
             autoComplete='off'
           />
           {errors.height_min && (
@@ -215,14 +215,14 @@ const Create = () => {
         </div>
 
         <div className={style.height_max}>
-          <label>Height maximum:</label>
+          <label>Maximum height:</label>
           <input
             className={errors.height_max && style.danger}
             type='text'
             name='height_max'
             onChange={handlerInputChange}
             value={input.height_max}
-            placeholder={'Type height max (cm)'}
+            placeholder={'Type max height (cm)'}
             autoComplete='off'
           />
           {errors.height_max && (
@@ -231,14 +231,14 @@ const Create = () => {
         </div>
 
         <div className={style.weight_min}>
-          <label>Weight minimum:</label>
+          <label>Minimum weight:</label>
           <input
             className={errors.weight_min && style.danger}
             type='text'
             name='weight_min'
             onChange={handlerInputChange}
             value={input.weight_min}
-            placeholder={'Type weight min (kg)'}
+            placeholder={'Type min weight (kg)'}
             autoComplete='off'
           />
           {errors.weight_min && (
@@ -247,14 +247,14 @@ const Create = () => {
         </div>
 
         <div className={style.weight_max}>
-          <label>Weight maximum:</label>
+          <label>Maximum weight:</label>
           <input
             className={errors.weight_max && style.danger}
             type='text'
             name='weight_max'
             onChange={handlerInputChange}
             value={input.weight_max}
-            placeholder={'Type weight max (kg)'}
+            placeholder={'Type max weight (kg)'}
             autoComplete='off'
           />
           {errors.weight_max && (
@@ -293,7 +293,7 @@ const Create = () => {
         </div>
 
         <div className={style.selectTemperament}>
-          <label>Choose temperament:</label>
+          <label>Temperament:</label>
           <select defaultValue={'DEFAULT'} onChange={handlerSelect}>
             <option value='DEFAULT' disabled>
               Choose temperament

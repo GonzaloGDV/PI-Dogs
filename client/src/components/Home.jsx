@@ -1,12 +1,12 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import Pagination from "./auxiliar/Pagination.jsx";
-import NoResults from "./auxiliar/NoResults.jsx";
-import Card from "./auxiliar/Card.jsx";
-import Loading from "./auxiliar/Loading.jsx";
-import style from "./styles/Home.module.css";
+import React from 'react';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import Pagination from './auxiliar/Pagination.jsx';
+import NoResults from './auxiliar/NoResults.jsx';
+import Card from './auxiliar/Card.jsx';
+import Loading from './auxiliar/Loading.jsx';
+import style from './styles/Home.module.css';
 import {
   getAllDogs,
   getAllTemperaments,
@@ -15,7 +15,7 @@ import {
   orderByName,
   orderByWeight,
   getDogByName,
-} from "../redux/actions";
+} from '../redux/actions';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -24,7 +24,7 @@ const Home = () => {
   const searchResult = useSelector((state) => state.noResults);
   const loading = useSelector((state) => state.loading);
 
-  const [name, setName] = useState("");
+  const [name, setName] = useState('');
 
   useEffect(() => {
     dispatch(getAllDogs());
@@ -34,7 +34,7 @@ const Home = () => {
     dispatch(getAllTemperaments());
   }, [dispatch]);
 
-  const [order, setOrder] = useState("");
+  const [order, setOrder] = useState('');
 
   //**********Paginate**********
   const [currentPage, setCurrentPage] = useState(1);
@@ -84,11 +84,11 @@ const Home = () => {
   function handleSubmit(e) {
     e.preventDefault();
     if (!name) {
-      alert("You should type a breed to start your search");
+      alert('You should type a breed to start your search');
     } else {
       dispatch(getDogByName(name));
       setCurrentPage(1);
-      setName("");
+      setName('');
     }
   }
   return (
@@ -98,29 +98,29 @@ const Home = () => {
       ) : (
         <div className={style.homeContainer}>
           <div className={style.menuContainer}>
-            <Link to="/create" className={style.linkCreate}>
+            <Link to='/create' className={style.linkCreate}>
               Create Dog
             </Link>
 
             <div className={style.filterApiVsCreated}>
-              <label>Filter API or Created breed </label>
+              <label>API or Created breed </label>
               <select onChange={handleFilterApiVsCreated}>
-                <option value="All">All dogs</option>
-                <option value="api">API dogs</option>
-                <option value="created">Created dogs</option>
+                <option value='All'>All dogs</option>
+                <option value='api'>API dogs</option>
+                <option value='created'>Created dogs</option>
               </select>
             </div>
 
             <div className={style.filterTemperament}>
-              <label>Filter by temperament </label>
+              <label>Temperament </label>
               <select
-                defaultValue={"DEFAULT"}
+                defaultValue={'DEFAULT'}
                 onChange={handleFilterByTemperament}
               >
-                <option value="DEFAULT" disabled>
+                <option value='DEFAULT' disabled>
                   Choose a temperament
                 </option>
-                <option value="All">All dogs</option>
+                <option value='All'>All dogs</option>
                 {allTemperaments &&
                   allTemperaments.map((temperament) => {
                     return (
@@ -133,28 +133,28 @@ const Home = () => {
             </div>
 
             <div className={style.orderBreed}>
-              <label>Order by breed </label>
+              <label>Breed </label>
               <select onChange={handleSort}>
-                <option value="ascend">A-Z breed name</option>
-                <option value="descend">Z-A breed name</option>
+                <option value='ascend'>A-Z breed name</option>
+                <option value='descend'>Z-A breed name</option>
               </select>
             </div>
 
             <div className={style.orderWeight}>
-              <label>Order by weight </label>
+              <label>Weight </label>
               <select onChange={handleSort2}>
-                <option value="lighter">Ascendent weight</option>
-                <option value="heavier">Descendent weight</option>
+                <option value='lighter'>Ascendent</option>
+                <option value='heavier'>Descendent</option>
               </select>
             </div>
 
             <div className={style.searchBar}>
               <input
-                type="text"
-                placeholder="Type a breed"
+                type='text'
+                placeholder='Type a breed'
                 onChange={(e) => handleInputChange(e)}
               />
-              <button type="submit" onClick={(e) => handleSubmit(e)}>
+              <button type='submit' onClick={(e) => handleSubmit(e)}>
                 Submit a search
               </button>
             </div>
@@ -190,7 +190,7 @@ const Home = () => {
                         temperaments={
                           !dog.created
                             ? dog.temperament
-                            : dog.temperaments.map((temp) => temp.name + ", ")
+                            : dog.temperaments.map((temp) => temp.name + ', ')
                         }
                         weight={`${dog.weight} kg`}
                       />
